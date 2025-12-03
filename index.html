@@ -12,53 +12,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <header id="main-header">
-        <div class="header-content">
-            <div class="logo" onclick="window.scrollTo(0,0)">
-                <div class="logo-icon"><i class="fa-solid fa-leaf"></i></div>
-                <span>Nutri<span class="text-primary">Chef</span></span>
-            </div>
-
-            <nav class="nav-links">
-                <a href="#">Home</a>
-                <a href="#recipes">Recipes</a>
-                <a href="#tracker">Nutrition Tracker</a>
-                <a href="#about">About</a>
-                <a href="#contact">Contact</a>
-            </nav>
-
-            <div class="header-actions">
-                <div class="search-bar">
-                    <i class="fa-solid fa-search search-icon"></i>
-                    <input type="text" placeholder="Search...">
-                </div>
-                <button class="theme-toggle-btn" id="theme-toggle" title="Toggle Dark Mode">
-                    <i class="fa-solid fa-moon"></i>
-                </button>
-                <button class="login-btn">Login</button>
-                <button class="btn btn-primary btn-sm">Add Recipe</button>
-            </div>
-
-            <button class="mobile-menu-btn" id="mobile-menu-btn">
-                <i class="fa-solid fa-bars"></i>
-            </button>
-        </div>
-
-        <div class="mobile-menu" id="mobile-menu">
-            <a href="#">Home</a>
-            <a href="#recipes">Recipes</a>
-            <a href="#tracker">Nutrition Tracker</a>
-            <a href="#about">About</a>
-            <div style="border-top: 1px solid var(--border-color); margin-top: 10px; pt-3"></div>
-            <button class="btn btn-outline" id="theme-toggle-mobile" style="width: 100%; margin-top: 10px; display: flex; justify-content: center; gap: 10px;">
-                <i class="fa-solid fa-moon"></i> Toggle Theme
-            </button>
-            <button class="btn btn-outline" style="width: 100%; margin-top: 10px;">Login</button>
-            <button class="btn btn-primary" style="width: 100%;">Add Recipe</button>
-        </div>
-    </header>
-
+    <div id="header-placeholder"></div>
     <section class="hero">
         <div class="blob blob-green"></div>
         <div class="blob blob-orange"></div>
@@ -335,63 +289,10 @@
         </div>
     </section>
 
-    <footer id="contact">
-        <div class="container">
-            <div class="footer-grid">
-                <div>
-                    <div class="footer-logo">
-                        <div><i class="fa-solid fa-leaf"></i></div>
-                        Nutri<span class="text-primary">Chef</span>
-                    </div>
-                    <p style="color: #9CA3AF; font-size: 0.9rem;">NutriChef is your companion for healthy living. We bridge the gap between delicious food and nutritional awareness.</p>
-                    <div class="social-icons">
-                        <a href="#" class="social-icon"><i class="fa-brands fa-facebook-f"></i></a>
-                        <a href="#" class="social-icon"><i class="fa-brands fa-twitter"></i></a>
-                        <a href="#" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
-                    </div>
-                </div>
+    <!-- footer -->
+    <div id="footer-placeholder"></div>
 
-                <div>
-                    <h4>Quick Links</h4>
-                    <ul class="footer-links">
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#recipes">Recipes</a></li>
-                        <li><a href="#">Add Recipe</a></li>
-                        <li><a href="#">Login / Register</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h4>Help & Support</h4>
-                    <ul class="footer-links">
-                        <li><a href="#">FAQ</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Contact Support</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h4>Contact Us</h4>
-                    <ul class="footer-links">
-                        <li style="display: flex; gap: 10px; color: #9CA3AF; font-size: 0.9rem;">
-                            <i class="fa-solid fa-location-dot text-primary" style="margin-top: 3px;"></i>
-                            123 Healthy Street, <br> Foodie City, FC 90210
-                        </li>
-                        <li style="display: flex; gap: 10px; color: #9CA3AF; font-size: 0.9rem;">
-                            <i class="fa-solid fa-envelope text-primary" style="margin-top: 3px;"></i>
-                            support@nutrichef.com
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="copyright">
-                &copy; 2025 RecipeTrack. All Rights Reserved.
-            </div>
-        </div>
-    </footer>
-
+    <!-- JavaScript -->
     <script src="script.js"></script>
 </body>
 </html>

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Recipes - NutriChef</title>
+
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+
+</head>
+<body>
+    <div id="header-placeholder"></div>
+
+    <!-- Main Content -->
+    <main class="container">
+        
+        <!-- 2. Page Title Section -->
+        <section class="page-header">
+            <h1 class="page-title">Explore Recipes</h1>
+            <p class="page-subtitle">Discover thousands of delicious recipes from every culture.</p>
+            
+            <!-- 3. Search Bar -->
+            <div class="search-container">
+                <i class="fa-solid fa-search search-icon-lg"></i>
+                <input type="text" class="big-search-input" id="search-input" placeholder="Search any recipe...">
+            </div>
+        </section>
+
+        <!-- 4. Filter Section -->
+        <section class="filters-container">
+            
+            <!-- Row 1: Categories & Sort -->
+            <div class="top-filter-row">
+                <!-- A) Category Filters -->
+                <div class="filter-group" style="flex: 1;">
+                    <span class="filter-label">Category</span>
+                    <div class="filter-options" id="category-filters">
+                        <button class="filter-chip active" data-value="All">All</button>
+                        <button class="filter-chip" data-value="Breakfast">Breakfast</button>
+                        <button class="filter-chip" data-value="Lunch">Lunch</button>
+                        <button class="filter-chip" data-value="Dinner">Dinner</button>
+                        <button class="filter-chip" data-value="Drinks">Drinks</button>
+                        <button class="filter-chip" data-value="Desserts">Desserts</button>
+                        <button class="filter-chip" data-value="Snack">Snacks</button>
+                    </div>
+                </div>
+
+                <!-- 5. Sort Dropdown (Custom Implementation) -->
+                <div class="filter-group">
+                    <span class="filter-label">Sort By</span>
+                    <div class="custom-select-wrapper">
+                        <div class="custom-select-trigger">
+                            <span>Most Popular</span>
+                            <i class="fa-solid fa-chevron-down arrow"></i>
+                        </div>
+                        <div class="custom-select-options">
+                            <div class="custom-option selected" data-value="popular">Most Popular</div>
+                            <div class="custom-option" data-value="rating">Top Rated</div>
+                            <div class="custom-option" data-value="newest">Newest</div>
+                            <div class="custom-option" data-value="time-low">Cooking Time: Low to High</div>
+                            <div class="custom-option" data-value="time-high">Cooking Time: High to Low</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Row 2: Difficulty & Time -->
+            <div class="bottom-filter-row">
+                
+                <!-- B) Difficulty Filters -->
+                <div class="filter-group">
+                    <span class="filter-label">Difficulty</span>
+                    <div class="filter-options" id="difficulty-filters">
+                        <button class="filter-chip" data-value="Easy">Easy</button>
+                        <button class="filter-chip" data-value="Medium">Medium</button>
+                        <button class="filter-chip" data-value="Hard">Hard</button>
+                    </div>
+                </div>
+                
+                <!-- C) Time Filters -->
+                <div class="filter-group">
+                    <span class="filter-label">Time</span>
+                    <div class="filter-options" id="time-filters">
+                        <button class="filter-chip" data-value="under-15">Under 15 minutes</button>
+                        <button class="filter-chip" data-value="15-30">15–30 minutes</button>
+                        <button class="filter-chip" data-value="over-60">1 hour+</button>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- 6. Recipes Grid -->
+        <div class="recipes-grid" id="recipes-grid">
+            
+            <!-- Added sortable attributes: data-rating, data-reviews, data-date (YYYY-MM-DD), data-time (minutes) -->
+
+            <!-- Card 1 -->
+            <article class="recipe-card" data-category="Breakfast" data-difficulty="Easy" data-time="20" data-rating="4.8" data-reviews="120" data-date="2023-10-15">
+                <div class="card-img-container">
+                    <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Recipe" class="card-img">
+                    <div class="card-badges">
+                        <span class="badge highlight">New</span>
+                    </div>
+                    <div class="badge fav-btn"><i class="fa-regular fa-heart"></i></div>
+                </div>
+                <div class="card-body">
+                    <span class="card-category">Breakfast</span>
+                    <h3 class="card-title">Avocado & Egg Power Bowl</h3>
+                    <div class="card-meta-row">
+                        <div class="meta-item"><i class="fa-regular fa-clock"></i> 20 mins</div>
+                        <div class="meta-item"><i class="fa-solid fa-star rating-star"></i> 4.8 (120)</div>
+                    </div>
+                    <div class="card-footer">
+                        <span class="text-primary font-bold">350 Kcal</span>
+                        <a href="#" class="view-link">View Recipe <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Card 2 -->
+            <article class="recipe-card" data-category="Dinner" data-difficulty="Medium" data-time="45" data-rating="4.9" data-reviews="250" data-date="2023-09-01">
+                <div class="card-img-container">
+                    <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Recipe" class="card-img">
+                    <div class="badge fav-btn"><i class="fa-regular fa-heart"></i></div>
+                </div>
+                <div class="card-body">
+                    <span class="card-category">Dinner</span>
+                    <h3 class="card-title">Classic Margherita Pizza</h3>
+                    <div class="card-meta-row">
+                        <div class="meta-item"><i class="fa-regular fa-clock"></i> 45 mins</div>
+                        <div class="meta-item"><i class="fa-solid fa-star rating-star"></i> 4.9 (250)</div>
+                    </div>
+                    <div class="card-footer">
+                        <span class="text-primary font-bold">600 Kcal</span>
+                        <a href="#" class="view-link">View Recipe <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Card 3 -->
+            <article class="recipe-card" data-category="Lunch" data-difficulty="Easy" data-time="15" data-rating="4.7" data-reviews="85" data-date="2023-10-10">
+                <div class="card-img-container">
+                    <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Recipe" class="card-img">
+                    <div class="card-badges">
+                        <span class="badge highlight">Quick Recipe</span>
+                    </div>
+                    <div class="badge fav-btn"><i class="fa-regular fa-heart"></i></div>
+                </div>
+                <div class="card-body">
+                    <span class="card-category">Lunch</span>
+                    <h3 class="card-title">Quinoa & Kale Salad</h3>
+                    <div class="card-meta-row">
+                        <div class="meta-item"><i class="fa-regular fa-clock"></i> 15 mins</div>
+                        <div class="meta-item"><i class="fa-solid fa-star rating-star"></i> 4.7 (85)</div>
+                    </div>
+                    <div class="card-footer">
+                        <span class="text-primary font-bold">320 Kcal</span>
+                        <a href="#" class="view-link">View Recipe <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Card 4 -->
+            <article class="recipe-card" data-category="Breakfast" data-difficulty="Medium" data-time="30" data-rating="4.5" data-reviews="300" data-date="2023-08-15">
+                <div class="card-img-container">
+                    <img src="https://images.unsplash.com/photo-1505253758473-96b701d8fe52?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Recipe" class="card-img">
+                    <div class="badge fav-btn"><i class="fa-regular fa-heart"></i></div>
+                </div>
+                <div class="card-body">
+                    <span class="card-category">Breakfast</span>
+                    <h3 class="card-title">Blueberry Pancakes</h3>
+                    <div class="card-meta-row">
+                        <div class="meta-item"><i class="fa-regular fa-clock"></i> 30 mins</div>
+                        <div class="meta-item"><i class="fa-solid fa-star rating-star"></i> 4.5 (300)</div>
+                    </div>
+                    <div class="card-footer">
+                        <span class="text-primary font-bold">450 Kcal</span>
+                        <a href="#" class="view-link">View Recipe <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Card 5 -->
+            <article class="recipe-card" data-category="Desserts" data-difficulty="Easy" data-time="20" data-rating="5.0" data-reviews="45" data-date="2023-10-20">
+                <div class="card-img-container">
+                    <img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Recipe" class="card-img">
+                    <div class="badge fav-btn"><i class="fa-regular fa-heart"></i></div>
+                </div>
+                <div class="card-body">
+                    <span class="card-category">Dessert</span>
+                    <h3 class="card-title">Berry Yogurt Parfait</h3>
+                    <div class="card-meta-row">
+                        <div class="meta-item"><i class="fa-regular fa-clock"></i> 20 mins</div>
+                        <div class="meta-item"><i class="fa-solid fa-star rating-star"></i> 5.0 (45)</div>
+                    </div>
+                    <div class="card-footer">
+                        <span class="text-primary font-bold">210 Kcal</span>
+                        <a href="#" class="view-link">View Recipe <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Card 6 -->
+            <article class="recipe-card" data-category="Dinner" data-difficulty="Medium" data-time="35" data-rating="4.6" data-reviews="90" data-date="2023-09-20">
+                <div class="card-img-container">
+                    <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Recipe" class="card-img">
+                    <div class="badge fav-btn"><i class="fa-regular fa-heart"></i></div>
+                </div>
+                <div class="card-body">
+                    <span class="card-category">Dinner</span>
+                    <h3 class="card-title">Grilled Salmon & Veggies</h3>
+                    <div class="card-meta-row">
+                        <div class="meta-item"><i class="fa-regular fa-clock"></i> 35 mins</div>
+                        <div class="meta-item"><i class="fa-solid fa-star rating-star"></i> 4.6 (90)</div>
+                    </div>
+                    <div class="card-footer">
+                        <span class="text-primary font-bold">480 Kcal</span>
+                        <a href="#" class="view-link">View Recipe <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </article>
+            
+            <!-- NEW RECIPE 7 -->
+            <article class="recipe-card" data-category="Snack" data-difficulty="Easy" data-time="40" data-rating="4.7" data-reviews="60" data-date="2023-10-18">
+                <div class="card-img-container">
+                    <img src="https://images.unsplash.com/photo-1594916894098-b805470d0758?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Recipe" class="card-img">
+                    <div class="card-badges">
+                        <span class="badge highlight">Vegan</span>
+                    </div>
+                    <div class="badge fav-btn"><i class="fa-regular fa-heart"></i></div>
+                </div>
+                <div class="card-body">
+                    <span class="card-category">Snack</span>
+                    <h3 class="card-title">Spicy Roasted Chickpeas</h3>
+                    <div class="card-meta-row">
+                        <div class="meta-item"><i class="fa-regular fa-clock"></i> 40 mins</div>
+                        <div class="meta-item"><i class="fa-solid fa-star rating-star"></i> 4.7 (60)</div>
+                    </div>
+                    <div class="card-footer">
+                        <span class="text-primary font-bold">180 Kcal</span>
+                        <a href="#" class="view-link">View Recipe <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- NEW RECIPE 8 -->
+            <article class="recipe-card" data-category="Drinks" data-difficulty="Easy" data-time="10" data-rating="4.9" data-reviews="200" data-date="2023-10-22">
+                <div class="card-img-container">
+                    <img src="https://images.unsplash.com/photo-1515823064-d6bc059f7560?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Recipe" class="card-img">
+                    <div class="badge fav-btn"><i class="fa-regular fa-heart"></i></div>
+                </div>
+                <div class="card-body">
+                    <span class="card-category">Drinks</span>
+                    <h3 class="card-title">Iced Matcha Latte</h3>
+                    <div class="card-meta-row">
+                        <div class="meta-item"><i class="fa-regular fa-clock"></i> 10 mins</div>
+                        <div class="meta-item"><i class="fa-solid fa-star rating-star"></i> 4.9 (200)</div>
+                    </div>
+                    <div class="card-footer">
+                        <span class="text-primary font-bold">120 Kcal</span>
+                        <a href="#" class="view-link">View Recipe <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </article>
+            
+        </div>
+    </main>
+
+    <!-- footer -->
+    <div id="footer-placeholder"></div>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
