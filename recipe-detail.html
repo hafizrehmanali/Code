@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Recipes - NutriChef</title>
+
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+
+</head>
+<body>
+    <div id="header-placeholder"></div>
+
+    <!-- Main Content -->
+    <main class="container">
+        
+        <!-- Back Button moved OUTSIDE of .recipe-header to align left -->
+        <a href="explore.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Recipes</a>
+
+        <!-- 2. Recipe Title Section -->
+        <section class="recipe-header">
+            
+            <span class="category-badge">Dinner</span>
+            <h1 class="recipe-title">Creamy Garlic Parmesan Chicken</h1>
+            <p class="recipe-desc">A delicious, creamy, and savory chicken dish perfect for weeknight dinners. Ready in under 30 minutes and packed with flavor.</p>
+            
+            <div class="recipe-actions">
+                <button class="action-btn love-btn"><i class="fa-regular fa-heart"></i> Save</button>
+                <!-- Added IDs for JS logic -->
+                <button class="action-btn" id="shareBtn"><i class="fa-solid fa-share-nodes"></i> Share</button>
+                <button class="action-btn" id="printBtn"><i class="fa-solid fa-print"></i> Print</button>
+            </div>
+        </section>
+
+        <!-- 3. Image Gallery -->
+        <section class="gallery-section">
+            <img src="https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Main Dish" class="main-image" id="mainImage">
+            
+            <div class="thumbnail-list">
+                <img src="https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" class="thumb active" onclick="changeImage(this)">
+                <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" class="thumb" onclick="changeImage(this)">
+                <img src="https://images.unsplash.com/photo-1432139555190-58524bf1663a?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" class="thumb" onclick="changeImage(this)">
+                <img src="https://images.unsplash.com/photo-1476718406336-bb5a9690ee2a?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" class="thumb" onclick="changeImage(this)">
+            </div>
+        </section>
+
+        <!-- 4. Key Info Bar -->
+        <section class="key-info">
+            <div class="info-item">
+                <div class="info-icon"><i class="fa-regular fa-clock"></i></div>
+                <div class="info-text">
+                    <span>Prep Time</span>
+                    <strong>10 mins</strong>
+                </div>
+            </div>
+            <div class="info-item">
+                <div class="info-icon"><i class="fa-solid fa-fire-burner"></i></div>
+                <div class="info-text">
+                    <span>Cook Time</span>
+                    <strong>20 mins</strong>
+                </div>
+            </div>
+            <div class="info-item">
+                <div class="info-icon"><i class="fa-solid fa-utensils"></i></div>
+                <div class="info-text">
+                    <span>Servings</span>
+                    <strong>4 People</strong>
+                </div>
+            </div>
+            <div class="info-item">
+                <div class="info-icon"><i class="fa-solid fa-chart-simple"></i></div>
+                <div class="info-text">
+                    <span>Difficulty</span>
+                    <strong>Easy</strong>
+                </div>
+            </div>
+            <div class="info-item">
+                <div class="info-icon"><i class="fa-solid fa-star"></i></div>
+                <div class="info-text">
+                    <span>Rating</span>
+                    <strong>4.9 <span style="font-size:0.8rem; font-weight:400; color:var(--text-muted);">(230)</span></strong>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Grid Layout -->
+        <div class="recipe-content">
+            
+            <!-- LEFT COLUMN: Ingredients & Nutrition -->
+            <aside class="sidebar-section ingredients-section">
+                
+                <!-- 7. Nutrition Facts (Moved to TOP of Sidebar) -->
+                <div style="margin-bottom: 30px; padding-bottom: 25px; border-bottom: 1px dashed var(--border-color);">
+                    <h3 class="section-title" style="font-size:1.2rem; margin-bottom: 15px;">Nutrition Facts</h3>
+                    <table class="nutrition-table">
+                        <tr><td>Calories</td><td>480 kcal</td></tr>
+                        <tr><td>Protein</td><td>45g</td></tr>
+                        <tr><td>Carbs</td><td>8g</td></tr>
+                        <tr><td>Fat</td><td>28g</td></tr>
+                        <tr><td>Fiber</td><td>2g</td></tr>
+                    </table>
+                    <p style="font-size:0.8rem; color:var(--text-muted); margin-top:10px;">*Percent Daily Values are based on a 2,000 calorie diet.</p>
+                </div>
+
+                <!-- 5. Ingredients -->
+                <h3 class="section-title">Ingredients <button class="action-btn" id="listBtn" style="font-size:0.8rem; padding:5px 10px;"><i class="fa-solid fa-plus"></i> List</button></h3>
+                <p style="color:var(--text-muted); margin-bottom:20px; font-size:0.9rem;">Check items as you shop or cook.</p>
+                
+                <h4 style="margin-bottom:10px; font-weight:600; color:var(--secondary-color);">For the Chicken</h4>
+                <ul class="ingredient-list">
+                    <li class="ingredient-item">
+                        <label class="check-container">
+                            <input type="checkbox">
+                            <span class="checkmark"></span>
+                            <span>2 lbs chicken breast, sliced</span>
+                        </label>
+                    </li>
+                    <li class="ingredient-item">
+                        <label class="check-container">
+                            <input type="checkbox">
+                            <span class="checkmark"></span>
+                            <span>2 tsp garlic powder</span>
+                        </label>
+                    </li>
+                    <li class="ingredient-item">
+                        <label class="check-container">
+                            <input type="checkbox">
+                            <span class="checkmark"></span>
+                            <span>1 tbsp olive oil</span>
+                        </label>
+                    </li>
+                </ul>
+
+                <h4 style="margin:20px 0 10px; font-weight:600; color:var(--secondary-color);">For the Sauce</h4>
+                <ul class="ingredient-list">
+                    <li class="ingredient-item">
+                        <label class="check-container">
+                            <input type="checkbox">
+                            <span class="checkmark"></span>
+                            <span>1 cup heavy cream</span>
+                        </label>
+                    </li>
+                    <li class="ingredient-item">
+                        <label class="check-container">
+                            <input type="checkbox">
+                            <span class="checkmark"></span>
+                            <span>1/2 cup parmesan cheese</span>
+                        </label>
+                    </li>
+                    <li class="ingredient-item">
+                        <label class="check-container">
+                            <input type="checkbox">
+                            <span class="checkmark"></span>
+                            <span>3 cups baby spinach</span>
+                        </label>
+                    </li>
+                </ul>
+            </aside>
+
+            <!-- RIGHT COLUMN: Instructions & Reviews -->
+            <div class="main-column">
+                
+                <!-- 6. Instructions -->
+                <section class="instructions-section">
+                    <h3 class="section-title">Instructions</h3>
+                    
+                    <ol class="instructions-list">
+                        <li class="step-item">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>Prep the Chicken</h4>
+                                <p>Slice the chicken breasts horizontally to create thinner cutlets. Season generously with garlic powder, salt, and black pepper on both sides.</p>
+                            </div>
+                        </li>
+                        <li class="step-item">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>Sear the Meat</h4>
+                                <p>In a large skillet, heat olive oil over medium-high heat. Add chicken and cook for 5 minutes per side until golden brown and cooked through. Remove chicken from the pan and set aside.</p>
+                                <img src="https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Cooking Chicken" class="step-img">
+                            </div>
+                        </li>
+                        <li class="step-item">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h4>Make the Sauce</h4>
+                                <p>In the same pan, add minced garlic and sauté for 1 minute until fragrant. Reduce heat to medium-low and pour in the heavy cream. Simmer for 3 minutes until slightly thickened.</p>
+                            </div>
+                        </li>
+                        <li class="step-item">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <h4>Combine & Serve</h4>
+                                <p>Stir in the parmesan cheese and spinach. Cook until spinach wilts. Return the chicken to the pan and spoon the sauce over it. Serve hot over pasta or rice.</p>
+                            </div>
+                        </li>
+                    </ol>
+                </section>
+
+                <!-- 8. Ratings & 9. Comments -->
+                <section class="rating-section">
+                    <h3 class="section-title">Reviews & Ratings</h3>
+                    
+                    <div class="rating-overview">
+                        <div class="rating-big">
+                            <h2>4.9</h2>
+                            <div class="stars">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star-half-stroke"></i>
+                            </div>
+                            <p style="color:var(--text-muted);">230 Reviews</p>
+                        </div>
+                        <div class="rating-bars">
+                            <div class="bar-row">
+                                <span>5 ★</span>
+                                <div class="progress-bg"><div class="progress-fill" style="width: 85%;"></div></div>
+                                <span>85%</span>
+                            </div>
+                            <div class="bar-row">
+                                <span>4 ★</span>
+                                <div class="progress-bg"><div class="progress-fill" style="width: 10%;"></div></div>
+                                <span>10%</span>
+                            </div>
+                            <div class="bar-row">
+                                <span>3 ★</span>
+                                <div class="progress-bg"><div class="progress-fill" style="width: 3%;"></div></div>
+                                <span>3%</span>
+                            </div>
+                            <div class="bar-row">
+                                <span>2 ★</span>
+                                <div class="progress-bg"><div class="progress-fill" style="width: 1%;"></div></div>
+                                <span>1%</span>
+                            </div>
+                            <div class="bar-row">
+                                <span>1 ★</span>
+                                <div class="progress-bg"><div class="progress-fill" style="width: 1%;"></div></div>
+                                <span>1%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4 style="margin-top:20px;">Leave a Comment</h4>
+                    <div class="comment-input-area">
+                        <div class="user-avatar"><i class="fa-solid fa-user"></i></div>
+                        <div style="flex:1;">
+                            <textarea class="comment-box" placeholder="How was the recipe? Share your thoughts..."></textarea>
+                            <button class="btn action-btn primary" style="margin-top:10px;">Post Review</button>
+                        </div>
+                    </div>
+
+                    <div class="comment-list">
+                        <!-- Comment 1 -->
+                        <div class="comment-item">
+                            <div class="user-avatar">JD</div>
+                            <div>
+                                <div class="comment-meta">
+                                    <strong>John Doe</strong>
+                                    <span class="comment-date">2 days ago</span>
+                                </div>
+                                <div style="color:var(--secondary-color); font-size:0.8rem; margin-bottom:5px;">
+                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                </div>
+                                <p style="color:var(--text-muted);">This was absolutely delicious! My whole family loved it. I added a bit more garlic because we love it strong. Will make again.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Comment 2 -->
+                        <div class="comment-item">
+                            <div class="user-avatar">AS</div>
+                            <div>
+                                <div class="comment-meta">
+                                    <strong>Sarah Smith</strong>
+                                    <span class="comment-date">1 week ago</span>
+                                </div>
+                                <div style="color:var(--secondary-color); font-size:0.8rem; margin-bottom:5px;">
+                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i>
+                                </div>
+                                <p style="color:var(--text-muted);">Great recipe but a bit rich for me. I used half and half instead of heavy cream and it worked perfectly.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="btn action-btn" style="width:100%; justify-content:center; margin-top:20px;">Load More Comments</button>
+                </section>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- footer -->
+    <div id="footer-placeholder"></div>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
