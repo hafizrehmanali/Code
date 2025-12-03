@@ -1,0 +1,1482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NutriChef - Food Recipe Sharing & Nutrition Tracker</title>
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- 1. RESET & VARIABLES --- */
+        :root {
+            /* Brand Colors */
+            --primary-color: #10B981; /* Emerald 500 */
+            --primary-hover: #059669;
+            --secondary-color: #F59E0B; /* Amber 500 */
+            
+            /* Theme Colors - Light Mode Default */
+            --bg-body: #F9FAFB;
+            --bg-card: #ffffff;
+            --bg-header: #ffffff;
+            --text-main: #1F2937;
+            --text-muted: #6B7280;
+            --border-color: #E5E7EB;
+            --input-bg: #f3f4f6;
+            
+            /* Shadows */
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            
+            /* Layout */
+            --radius: 12px;
+            --radius-lg: 20px;
+        }
+
+        /* Dark Mode Overrides */
+        body.dark-mode {
+            --bg-body: #111827; /* Gray 900 */
+            --bg-card: #1F2937; /* Gray 800 */
+            --bg-header: #111827;
+            --text-main: #F9FAFB; /* Gray 50 */
+            --text-muted: #9CA3AF; /* Gray 400 */
+            --border-color: #374151; /* Gray 700 */
+            --input-bg: #374151;
+            
+            /* Adjust shadows for dark mode visibility */
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-main);
+            background-color: var(--bg-body);
+            line-height: 1.6;
+            overflow-x: hidden; /* Prevent accidental horizontal scroll */
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.2;
+            color: var(--text-main);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.3s ease;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        button, input {
+            font-family: inherit;
+        }
+
+        /* --- 2. PROFESSIONAL UTILITIES --- */
+        
+        /* Fluid Container */
+        .container {
+            width: 100%;
+            max-width: 1280px; 
+            margin-inline: auto;
+            padding-inline: 1.5rem; /* 24px */
+        }
+
+        /* Breakpoint for larger screens to utilize more space */
+        @media (min-width: 1536px) {
+            .container {
+                max-width: 1440px;
+            }
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 28px;
+            border-radius: var(--radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 1rem;
+            white-space: nowrap;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: #ffffff;
+            box-shadow: var(--shadow);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-outline {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--input-bg);
+            border-color: var(--text-muted);
+        }
+
+        .text-primary { color: var(--primary-color); }
+        .text-secondary { color: var(--secondary-color); }
+        
+        /* --- 3. HEADER --- */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--bg-header);
+            z-index: 1000;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            transition: box-shadow 0.3s ease, background-color 0.3s ease;
+            border-bottom: 1px solid transparent; /* Prepare for border on dark mode if needed */
+        }
+
+        header.scrolled {
+            box-shadow: var(--shadow);
+        }
+
+        /* Add bottom border in dark mode for definition */
+        body.dark-mode header {
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 1280px;
+            margin-inline: auto;
+            padding-inline: 1.5rem;
+        }
+        @media (min-width: 1536px) { .header-content { max-width: 1440px; } }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            font-family: 'Poppins', sans-serif;
+            flex-shrink: 0;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .search-bar {
+            position: relative;
+        }
+
+        .search-bar input {
+            padding: 10px 15px 10px 40px;
+            border-radius: 20px;
+            border: 1px solid transparent;
+            background-color: var(--input-bg);
+            color: var(--text-main);
+            outline: none;
+            width: 14rem;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .search-bar input:focus {
+            width: 18rem;
+            background-color: var(--bg-card);
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            pointer-events: none;
+        }
+
+        .login-btn {
+            background: none;
+            border: none;
+            color: var(--primary-color);
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* Theme Toggle Button */
+        .theme-toggle-btn {
+            background: none;
+            border: none;
+            color: var(--text-main);
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .theme-toggle-btn:hover {
+            background-color: var(--input-bg);
+            color: var(--primary-color);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-main);
+            cursor: pointer;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 80px;
+            left: 0;
+            width: 100%;
+            background-color: var(--bg-card);
+            border-top: 1px solid var(--border-color);
+            padding: 20px;
+            display: none;
+            flex-direction: column;
+            gap: 15px;
+            box-shadow: var(--shadow);
+            z-index: 999;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        /* --- 4. HERO SECTION --- */
+        .hero {
+            padding: 160px 0 100px;
+            position: relative;
+            overflow: hidden;
+            min-height: 90vh; 
+            display: flex;
+            align-items: center;
+        }
+
+        /* Decorative Background Blobs */
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.5;
+            z-index: -1;
+        }
+        .blob-green { top: -50px; right: -50px; width: 40vw; height: 40vw; background-color: #d1fae5; }
+        .blob-orange { bottom: -50px; left: -50px; width: 30vw; height: 30vw; background-color: #ffedd5; }
+        
+        /* Dark Mode Blobs Adjustment */
+        body.dark-mode .blob-green { background-color: rgba(16, 185, 129, 0.15); }
+        body.dark-mode .blob-orange { background-color: rgba(245, 158, 11, 0.15); }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-text {
+            max-width: 600px;
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: #d1fae5;
+            color: var(--primary-color);
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+        body.dark-mode .badge { background-color: rgba(16, 185, 129, 0.2); }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem); 
+            margin-bottom: 24px;
+            line-height: 1.1;
+        }
+
+        .hero p {
+            font-size: 1.125rem;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            max-width: 90%;
+            line-height: 1.7;
+        }
+
+        .hero-search {
+            display: flex;
+            background: var(--bg-card);
+            padding: 6px;
+            border-radius: 50px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-color);
+            margin-bottom: 32px;
+            max-width: 480px;
+            width: 100%;
+        }
+
+        .hero-search input {
+            flex: 1;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 50px 0 0 50px;
+            outline: none;
+            font-size: 1rem;
+            background: transparent;
+            color: var(--text-main);
+        }
+
+        .hero-search button {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .hero-search button:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .hero-image {
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+
+        .hero-img-main {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            border-radius: 30px;
+            border: 5px solid var(--bg-card);
+            box-shadow: var(--shadow-lg);
+            transform: rotate(2deg);
+            transition: transform 0.5s;
+        }
+
+        .hero-image:hover .hero-img-main {
+            transform: rotate(0deg);
+        }
+
+        .float-card {
+            position: absolute;
+            background: var(--bg-card);
+            padding: 12px 16px;
+            border-radius: 16px;
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            backdrop-filter: blur(8px);
+            z-index: 2;
+            animation: float 4s ease-in-out infinite;
+            border: 1px solid var(--border-color); /* Added border for dark mode pop */
+        }
+        
+        body.dark-mode .float-card {
+            background: rgba(31, 41, 55, 0.9);
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .float-card i {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+
+        .fc-cal { bottom: 10%; left: 0; animation-delay: 1s; }
+        .fc-cal i { background: #ffedd5; color: var(--secondary-color); }
+        body.dark-mode .fc-cal i { background: rgba(245, 158, 11, 0.2); }
+        
+        .fc-pro { top: 10%; right: 0; animation-delay: 0s; }
+        .fc-pro i { background: #d1fae5; color: var(--primary-color); }
+        body.dark-mode .fc-pro i { background: rgba(16, 185, 129, 0.2); }
+
+        /* --- 5. RECIPES GRID --- */
+        .section {
+            padding: 100px 0;
+            background-color: var(--bg-body);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .section-header h2 {
+            font-size: 2.25rem;
+            margin-bottom: 8px;
+        }
+
+        .view-all {
+            color: var(--primary-color);
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .recipes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 32px;
+        }
+
+        .recipe-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .recipe-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card-image {
+            aspect-ratio: 16/10;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            transition: transform 0.5s ease;
+        }
+        
+        .recipe-card:hover .card-image img {
+            transform: scale(1.05);
+        }
+
+        .time-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: var(--bg-card);
+            color: var(--text-main);
+            padding: 6px 10px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .card-content {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            flex: 1; 
+        }
+
+        .card-title-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+            gap: 10px;
+        }
+
+        .card-title-row h3 {
+            font-size: 1.125rem;
+            font-weight: 700;
+            line-height: 1.4;
+        }
+
+        .rating {
+            color: var(--secondary-color);
+            font-size: 0.875rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: #FEF3C7;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        body.dark-mode .rating { background: rgba(245, 158, 11, 0.2); }
+
+        .card-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .card-footer {
+            margin-top: auto; 
+            border-top: 1px solid var(--border-color);
+            padding-top: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .calories {
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .view-btn {
+            background: none;
+            border: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-main);
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .view-btn:hover {
+            color: var(--primary-color);
+        }
+
+        /* --- 6. CATEGORIES --- */
+        .bg-light { background-color: var(--bg-body); }
+        /* For dark mode, bg-light and default section bg are the same, so no extra change needed */
+
+        .categories-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 24px;
+        }
+
+        .category-card {
+            background: var(--bg-card);
+            padding: 32px 24px;
+            border-radius: var(--radius);
+            flex: 1 1 160px; 
+            max-width: 220px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+        body.dark-mode .category-card { border: 1px solid var(--border-color); }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+            border-color: var(--border-color);
+        }
+
+        .cat-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            margin-bottom: 16px;
+            transition: all 0.3s;
+        }
+
+        .cat-red { background: #fee2e2; color: #ef4444; }
+        body.dark-mode .cat-red { background: rgba(239, 68, 68, 0.2); }
+        .category-card:hover .cat-red { background: #ef4444; color: white; }
+
+        .cat-green { background: #dcfce7; color: #22c55e; }
+        body.dark-mode .cat-green { background: rgba(34, 197, 94, 0.2); }
+        .category-card:hover .cat-green { background: #22c55e; color: white; }
+
+        .cat-blue { background: #dbeafe; color: #3b82f6; }
+        body.dark-mode .cat-blue { background: rgba(59, 130, 246, 0.2); }
+        .category-card:hover .cat-blue { background: #3b82f6; color: white; }
+
+        .cat-yellow { background: #fef3c7; color: #f59e0b; }
+        body.dark-mode .cat-yellow { background: rgba(245, 158, 11, 0.2); }
+        .category-card:hover .cat-yellow { background: #f59e0b; color: white; }
+
+        .cat-purple { background: #f3e8ff; color: #a855f7; }
+        body.dark-mode .cat-purple { background: rgba(168, 85, 247, 0.2); }
+        .category-card:hover .cat-purple { background: #a855f7; color: white; }
+
+        .cat-title {
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .category-card:hover .cat-title { color: var(--text-main); }
+
+        /* --- 7. TRACKER SECTION --- */
+        .tracker-section {
+            padding: 100px 0;
+            background: var(--bg-body);
+        }
+
+        .tracker-bg {
+            background-color: #1F2937; /* Keeping this fixed dark for contrast in both modes */
+            border-radius: 30px;
+            padding: 5rem 4rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Decorative circle inside tracker */
+        .tracker-deco {
+            position: absolute;
+            top: -10%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(16,185,129,0.2) 0%, rgba(31,41,55,0) 70%);
+            border-radius: 50%;
+        }
+
+        .tracker-content-wrapper {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .tracker-text h2 {
+            color: white;
+            font-size: 3rem;
+            margin-bottom: 24px;
+            line-height: 1.2;
+        }
+
+        .tracker-text p {
+            color: #D1D5DB;
+            margin-bottom: 32px;
+            font-size: 1.125rem;
+            max-width: 90%;
+        }
+
+        .check-list li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            color: #E5E7EB;
+            font-weight: 500;
+        }
+
+        .tracker-ui {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .tracker-card {
+            background: var(--bg-card);
+            color: var(--text-main);
+            padding: 32px;
+            border-radius: 24px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        body.dark-mode .tracker-card { border: 1px solid var(--border-color); }
+
+        .tc-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .status-badge {
+            background: #d1fae5;
+            color: var(--primary-color);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        body.dark-mode .status-badge { background: rgba(16, 185, 129, 0.2); }
+
+        .donut-chart {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: conic-gradient(#10B981 0% 65%, #F59E0B 65% 85%, #E5E7EB 85% 100%);
+            margin: 0 auto 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset 0 0 0 1px rgba(0,0,0,0.05);
+        }
+        body.dark-mode .donut-chart { background: conic-gradient(#10B981 0% 65%, #F59E0B 65% 85%, #374151 85% 100%); }
+
+        .donut-inner {
+            width: 130px;
+            height: 130px;
+            background: var(--bg-card);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .macros-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px;
+        }
+
+        .macro-box {
+            background: var(--input-bg);
+            padding: 12px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .macro-label { font-size: 0.75rem; color: var(--text-muted); font-weight: 500; }
+        .macro-val { font-weight: 700; font-size: 1.1rem; margin: 4px 0; }
+        .progress-bar { height: 4px; background: #e5e7eb; border-radius: 2px; width: 100%; margin-top: 4px; }
+        body.dark-mode .progress-bar { background: #4B5563; }
+        .progress-fill { height: 100%; border-radius: 2px; }
+
+        /* --- 8. COMMUNITY --- */
+        .community-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #ecfdf5 0%, #ffffff 100%);
+            text-align: center;
+        }
+        body.dark-mode .community-section {
+            background: linear-gradient(135deg, #064e3b 0%, #111827 100%);
+        }
+
+        .stats-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 32px;
+            max-width: 900px;
+            margin: 48px auto;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            padding: 32px;
+            border-radius: 20px;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05);
+            flex: 1 1 200px;
+        }
+
+        .stat-num { font-size: 2.5rem; font-weight: 800; margin-bottom: 8px; line-height: 1; }
+
+        /* --- 9. FAQ --- */
+        .faq-section {
+            padding: 100px 0;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            margin-bottom: 16px;
+            overflow: hidden;
+            background: var(--bg-card);
+        }
+
+        .faq-btn {
+            width: 100%;
+            padding: 24px 32px;
+            text-align: left;
+            background: var(--bg-card);
+            border: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1.05rem;
+            color: var(--text-main);
+            transition: background 0.2s;
+        }
+
+        .faq-btn:hover { background: var(--input-bg); }
+
+        .faq-content {
+            padding: 0 32px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            background: var(--bg-card);
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        .faq-content.open {
+            padding-bottom: 24px;
+            max-height: 300px; 
+        }
+
+        .faq-btn i { transition: transform 0.3s; color: var(--primary-color); }
+        .faq-btn.active i { transform: rotate(180deg); }
+
+        /* --- 10. FOOTER --- */
+        footer {
+            background-color: #111827; /* Always dark footer */
+            color: white;
+            padding: 80px 0 40px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+            gap: 48px;
+            margin-bottom: 60px;
+        }
+
+        .footer-logo { font-size: 1.5rem; font-weight: 700; margin-bottom: 24px; display: flex; align-items: center; gap: 12px; }
+        .footer-logo div { background: var(--primary-color); width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; }
+
+        .footer h4 { color: white; margin-bottom: 24px; font-size: 1.1rem; font-weight: 600; }
+        
+        .footer-links li { margin-bottom: 14px; }
+        .footer-links a { color: #9CA3AF; font-size: 0.95rem; transition: all 0.2s; }
+        .footer-links a:hover { color: var(--primary-color); padding-left: 5px; }
+
+        .social-icons { display: flex; gap: 16px; margin-top: 24px; }
+        .social-icon { width: 40px; height: 40px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; transition: all 0.3s; }
+        .social-icon:hover { background: var(--primary-color); transform: translateY(-3px); }
+
+        .copyright {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 32px;
+            text-align: center;
+            color: #6B7280;
+            font-size: 0.9rem;
+        }
+
+        /* --- PROFESSIONAL RESPONSIVE MEDIA QUERIES --- */
+        
+        /* Tablet & Smaller Laptop */
+        @media (max-width: 1024px) {
+            .hero-content { grid-template-columns: 1fr; text-align: center; gap: 60px; }
+            .hero-text { margin: 0 auto; max-width: 700px; }
+            .hero-buttons { justify-content: center; }
+            .hero-search { margin-inline: auto; }
+            
+            .tracker-content-wrapper { grid-template-columns: 1fr; text-align: center; }
+            .tracker-text p { margin-inline: auto; }
+            .check-list li { justify-content: center; }
+            .tracker-bg { padding: 4rem 2rem; }
+
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .nav-links, .header-actions { display: none; }
+            .mobile-menu-btn { display: block; }
+            
+            .hero h1 { font-size: 2.5rem; }
+            
+            .section { padding: 60px 0; }
+            .section-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+            .view-all { display: none; } 
+
+            .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+            
+            .container { padding-inline: 1.25rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. Header -->
+    <header id="main-header">
+        <div class="header-content">
+            <div class="logo" onclick="window.scrollTo(0,0)">
+                <div class="logo-icon"><i class="fa-solid fa-leaf"></i></div>
+                <span>Nutri<span class="text-primary">Chef</span></span>
+            </div>
+
+            <nav class="nav-links">
+                <a href="#">Home</a>
+                <a href="#recipes">Recipes</a>
+                <a href="#tracker">Nutrition Tracker</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            </nav>
+
+            <div class="header-actions">
+                <div class="search-bar">
+                    <i class="fa-solid fa-search search-icon"></i>
+                    <input type="text" placeholder="Search...">
+                </div>
+                <button class="theme-toggle-btn" id="theme-toggle" title="Toggle Dark Mode">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+                <button class="login-btn">Login</button>
+                <button class="btn btn-primary btn-sm">Add Recipe</button>
+            </div>
+
+            <button class="mobile-menu-btn" id="mobile-menu-btn">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div class="mobile-menu" id="mobile-menu">
+            <a href="#">Home</a>
+            <a href="#recipes">Recipes</a>
+            <a href="#tracker">Nutrition Tracker</a>
+            <a href="#about">About</a>
+            <div style="border-top: 1px solid var(--border-color); margin-top: 10px; pt-3"></div>
+            <!-- Theme toggle for mobile -->
+            <button class="btn btn-outline" id="theme-toggle-mobile" style="width: 100%; margin-top: 10px; display: flex; justify-content: center; gap: 10px;">
+                <i class="fa-solid fa-moon"></i> Toggle Theme
+            </button>
+            <button class="btn btn-outline" style="width: 100%; margin-top: 10px;">Login</button>
+            <button class="btn btn-primary" style="width: 100%;">Add Recipe</button>
+        </div>
+    </header>
+
+    <!-- 2. Hero Section -->
+    <section class="hero">
+        <div class="blob blob-green"></div>
+        <div class="blob blob-orange"></div>
+        
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <div class="badge"><i class="fa-solid fa-star"></i> #1 Nutrition App of 2025</div>
+                    <h1>Cook Smart. <br> <span class="text-primary">Eat Healthy.</span> <br> Track Nutrition.</h1>
+                    <p>Discover thousands of recipes, share your culinary masterpieces, and keep track of your daily calories effortlessly.</p>
+                    
+                    <div class="hero-search">
+                        <input type="text" placeholder="Search recipes (e.g. Avocado Toast)">
+                        <button><i class="fa-solid fa-search"></i></button>
+                    </div>
+
+                    <div class="hero-buttons">
+                        <button class="btn btn-primary"><a href="explore.html">Explore Recipes</a></button>
+                        <button class="btn btn-outline"><i class="fa-solid fa-plus text-primary"></i> Add Your Recipe</button>
+                    </div>
+                </div>
+
+                <div class="hero-image">
+                    <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Healthy Food" class="hero-img-main">
+                    
+                    <!-- Floating Cards -->
+                    <div class="float-card fc-cal">
+                        <i class="fa-solid fa-fire"></i>
+                        <div>
+                            <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">Calories</div>
+                            <div style="font-weight: 700;">450 kcal</div>
+                        </div>
+                    </div>
+
+                    <div class="float-card fc-pro">
+                        <i class="fa-solid fa-check"></i>
+                        <div>
+                            <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">Protein</div>
+                            <div style="font-weight: 700;">28g</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Featured Recipes -->
+    <section class="section" id="recipes">
+        <div class="container">
+            <div class="section-header">
+                <div>
+                    <h2>Popular Recipes This Week</h2>
+                    <p style="color: var(--text-muted);">Hand-picked by our nutrition experts and community.</p>
+                </div>
+                <a href="#" class="view-all">View All <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+
+            <div class="recipes-grid">
+                <!-- Card 1 -->
+                <div class="recipe-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60" alt="Salad">
+                        <div class="time-badge"><i class="fa-solid fa-clock" style="color:var(--text-muted);"></i> 20m</div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-title-row">
+                            <h3>Quinoa Power Salad</h3>
+                            <div class="rating"><i class="fa-solid fa-star"></i> 4.9</div>
+                        </div>
+                        <p class="card-desc">A fresh mix of quinoa, avocado, and kale.</p>
+                        <div class="card-footer">
+                            <span class="calories"><i class="fa-solid fa-fire"></i> 320 Kcal</span>
+                            <button class="view-btn">View Recipe</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="recipe-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60" alt="Chicken">
+                        <div class="time-badge"><i class="fa-solid fa-clock" style="color:var(--text-muted);"></i> 45m</div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-title-row">
+                            <h3>Grilled Lemon Chicken</h3>
+                            <div class="rating"><i class="fa-solid fa-star"></i> 4.7</div>
+                        </div>
+                        <p class="card-desc">Juicy chicken breast with lemon herbs.</p>
+                        <div class="card-footer">
+                            <span class="calories"><i class="fa-solid fa-fire"></i> 480 Kcal</span>
+                            <button class="view-btn">View Recipe</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="recipe-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60" alt="Smoothie">
+                        <div class="time-badge"><i class="fa-solid fa-clock" style="color:var(--text-muted);"></i> 5m</div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-title-row">
+                            <h3>Green Detox Smoothie</h3>
+                            <div class="rating"><i class="fa-solid fa-star"></i> 4.8</div>
+                        </div>
+                        <p class="card-desc">Spinach, apple, and ginger refreshing blend.</p>
+                        <div class="card-footer">
+                            <span class="calories"><i class="fa-solid fa-fire"></i> 150 Kcal</span>
+                            <button class="view-btn">View Recipe</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="recipe-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1482049016688-2d3e1b311543?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60" alt="Toast">
+                        <div class="time-badge"><i class="fa-solid fa-clock" style="color:var(--text-muted);"></i> 10m</div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-title-row">
+                            <h3>Avocado Egg Toast</h3>
+                            <div class="rating"><i class="fa-solid fa-star"></i> 5.0</div>
+                        </div>
+                        <p class="card-desc">Perfect breakfast with protein and healthy fats.</p>
+                        <div class="card-footer">
+                            <span class="calories"><i class="fa-solid fa-fire"></i> 380 Kcal</span>
+                            <button class="view-btn">View Recipe</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Categories -->
+    <section class="section bg-light">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 40px;">Explore by Category</h2>
+            
+            <div class="categories-wrapper">
+                <div class="category-card">
+                    <div class="cat-icon cat-red"><i class="fa-solid fa-drumstick-bite"></i></div>
+                    <span class="cat-title">High Protein</span>
+                </div>
+                <div class="category-card">
+                    <div class="cat-icon cat-green"><i class="fa-solid fa-carrot"></i></div>
+                    <span class="cat-title">Vegan</span>
+                </div>
+                <div class="category-card">
+                    <div class="cat-icon cat-blue"><i class="fa-solid fa-bread-slice"></i></div>
+                    <span class="cat-title">Low Carb</span>
+                </div>
+                <div class="category-card">
+                    <div class="cat-icon cat-yellow"><i class="fa-solid fa-stopwatch"></i></div>
+                    <span class="cat-title">15-Min Meals</span>
+                </div>
+                <div class="category-card">
+                    <div class="cat-icon cat-purple"><i class="fa-solid fa-ice-cream"></i></div>
+                    <span class="cat-title">Desserts</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Tracker Section -->
+    <section class="tracker-section" id="tracker">
+        <div class="container">
+            <div class="tracker-bg">
+                <div class="tracker-deco"></div>
+                
+                <div class="tracker-content-wrapper">
+                    <div class="tracker-text">
+                        <h2>Track Your Daily Calories <span class="text-primary">Easily</span></h2>
+                        <p>Take control of your health. Add meals with a click, see detailed nutrient breakdowns, and stay within your daily goals.</p>
+                        
+                        <ul class="check-list">
+                            <li><i class="fa-solid fa-circle-check text-primary"></i> Automated Macro Calculation</li>
+                            <li><i class="fa-solid fa-circle-check text-primary"></i> Daily & Weekly Progress Charts</li>
+                            <li><i class="fa-solid fa-circle-check text-primary"></i> Goal Setting for Weight Loss/Gain</li>
+                        </ul>
+
+                        <button class="btn btn-primary" style="margin-top: 20px;">Open Nutrition Tracker</button>
+                    </div>
+
+                    <div class="tracker-ui">
+                        <div class="tracker-card">
+                            <div class="tc-header">
+                                <h4 style="font-weight: 700; font-size: 1.1rem;">Today's Intake</h4>
+                                <span class="status-badge">On Track</span>
+                            </div>
+
+                            <div class="donut-chart">
+                                <div class="donut-inner">
+                                    <span style="font-size: 1.5rem; font-weight: 700;">1,450</span>
+                                    <span style="font-size: 0.75rem; color: var(--text-muted);">kcal left</span>
+                                </div>
+                            </div>
+
+                            <div class="macros-grid">
+                                <div class="macro-box">
+                                    <div class="macro-label">Carbs</div>
+                                    <div class="macro-val text-primary">120g</div>
+                                    <div class="progress-bar"><div class="progress-fill" style="width: 75%; background: var(--primary-color);"></div></div>
+                                </div>
+                                <div class="macro-box">
+                                    <div class="macro-label">Protein</div>
+                                    <div class="macro-val text-secondary">85g</div>
+                                    <div class="progress-bar"><div class="progress-fill" style="width: 50%; background: var(--secondary-color);"></div></div>
+                                </div>
+                                <div class="macro-box">
+                                    <div class="macro-label">Fats</div>
+                                    <!-- Made the text RED as requested previously -->
+                                    <div class="macro-val" style="color: #ef4444;">45g</div>
+                                    <div class="progress-bar"><div class="progress-fill" style="width: 33%; background: #ef4444;"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Community Stats -->
+    <section class="community-section">
+        <div class="container">
+            <h2>Join our food-loving community</h2>
+            <p style="color: var(--text-muted); max-width: 600px; margin: 10px auto 30px;">Connect with other health enthusiasts, share your journey, and get inspired by millions of recipes uploaded daily.</p>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-num text-primary">10k+</div>
+                    <div style="color: var(--text-muted);">Recipes Shared</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-num text-secondary">500k+</div>
+                    <div style="color: var(--text-muted);">Active Users</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-num" style="color: var(--text-main);">4.8</div>
+                    <div style="color: var(--text-muted);">App Rating ⭐</div>
+                </div>
+            </div>
+
+            <button class="btn" style="background: var(--text-main); color: var(--bg-card); padding: 15px 40px; font-size: 1.1rem;">Create Free Account</button>
+            <p style="font-size: 0.85rem; color: #9CA3AF; margin-top: 15px;">No credit card required.</p>
+        </div>
+    </section>
+
+    <!-- 8. FAQ -->
+    <section class="faq-section">
+        <h2 style="text-align: center; margin-bottom: 40px;">Frequently Asked Questions</h2>
+        
+        <div class="faq-item">
+            <button class="faq-btn">
+                How do I upload a recipe?
+                <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <div class="faq-content">
+                Simply create an account, click the "Add Recipe" button in the header, and fill out the form with your ingredients, steps, and photos.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-btn">
+                How do I track nutrition?
+                <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <div class="faq-content">
+                Go to the "Nutrition Tracker" section. You can search for ingredients or existing recipes, add them to your daily log, and the app calculates the totals automatically.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-btn">
+                Is the app free to use?
+                <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <div class="faq-content">
+                Yes! The core features including recipe sharing and basic nutrition tracking are 100% free. We also offer a Premium plan for advanced diet analytics.
+            </div>
+        </div>
+    </section>
+
+    <!-- 9. Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-logo">
+                        <div><i class="fa-solid fa-leaf"></i></div>
+                        Nutri<span class="text-primary">Chef</span>
+                    </div>
+                    <p style="color: #9CA3AF; font-size: 0.9rem;">NutriChef is your companion for healthy living. We bridge the gap between delicious food and nutritional awareness.</p>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#recipes">Recipes</a></li>
+                        <li><a href="#">Add Recipe</a></li>
+                        <li><a href="#">Login / Register</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4>Help & Support</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Contact Support</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4>Contact Us</h4>
+                    <ul class="footer-links">
+                        <li style="display: flex; gap: 10px; color: #9CA3AF; font-size: 0.9rem;">
+                            <i class="fa-solid fa-location-dot text-primary" style="margin-top: 3px;"></i>
+                            123 Healthy Street, <br> Foodie City, FC 90210
+                        </li>
+                        <li style="display: flex; gap: 10px; color: #9CA3AF; font-size: 0.9rem;">
+                            <i class="fa-solid fa-envelope text-primary" style="margin-top: 3px;"></i>
+                            support@nutrichef.com
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                &copy; 2025 RecipeTrack. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // 1. Mobile Menu Toggle
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+        });
+
+        // 2. Sticky Header Effect
+        const header = document.getElementById('main-header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 10) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // 3. FAQ Accordion Logic
+        const faqButtons = document.querySelectorAll('.faq-btn');
+
+        faqButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const content = btn.nextElementSibling;
+                
+                // Toggle current item
+                btn.classList.toggle('active');
+                
+                if (btn.classList.contains('active')) {
+                    content.classList.add('open');
+                } else {
+                    content.classList.remove('open');
+                }
+            });
+        });
+
+        // 4. Dark Mode Toggle
+        const themeBtn = document.getElementById('theme-toggle');
+        const themeBtnMobile = document.getElementById('theme-toggle-mobile');
+        const body = document.body;
+        const icon = themeBtn.querySelector('i');
+        const iconMobile = themeBtnMobile.querySelector('i');
+
+        // Check Local Storage on load
+        const currentTheme = localStorage.getItem('theme');
+        if (currentTheme === 'dark') {
+            body.classList.add('dark-mode');
+            icon.classList.replace('fa-moon', 'fa-sun');
+            iconMobile.classList.replace('fa-moon', 'fa-sun');
+        }
+
+        // Toggle Function
+        function toggleTheme() {
+            body.classList.toggle('dark-mode');
+            const isDark = body.classList.contains('dark-mode');
+            
+            // Update Icons
+            if (isDark) {
+                icon.classList.replace('fa-moon', 'fa-sun');
+                iconMobile.classList.replace('fa-moon', 'fa-sun');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                icon.classList.replace('fa-sun', 'fa-moon');
+                iconMobile.classList.replace('fa-sun', 'fa-moon');
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        themeBtn.addEventListener('click', toggleTheme);
+        themeBtnMobile.addEventListener('click', toggleTheme);
+
+    </script>
+</body>
+</html>
