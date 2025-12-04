@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Recipes - NutriChef</title>
+
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+
+</head>
+<body>
+    <div id="header-placeholder"></div>
+
+    <!-- Back Navigation -->
+    <div style="position: absolute; top: 25px; left: 25px; z-index: 1000;">
+        <a href="index.html" style="background: rgba(255,255,255,0.9); backdrop-filter: blur(5px); padding: 10px 20px; border-radius: 30px; font-weight: 600; color: #1F2937; box-shadow: 0 4px 10px rgba(0,0,0,0.1); text-decoration:none; transition:0.3s;">
+            <i class="fa-solid fa-arrow-left"></i> Home
+        </a>
+    </div>
+
+    <!-- 1. Hero Section -->
+    <header class="about-hero">
+        <div class="hero-content">
+            <h1>About NutriChef</h1>
+            <p>Empowering your culinary journey with smart nutrition insights.</p>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <!-- 2. Intro & Problem -->
+        <section class="story-section">
+            <div class="story-grid">
+                <!-- Intro Card -->
+                <div class="story-card">
+                    <span class="section-label">Who We Are</span>
+                    <h2>More Than Just Recipes.</h2>
+                    <p class="story-text">
+                        NutriChef is a modern web platform designed for food lovers, home cooks, and health-conscious individuals.
+                        <br><br>
+                        We combine the joy of <strong>sharing recipes</strong> with the power of <strong>data-driven nutrition</strong>. Our goal is to make cooking easier, healthier, and more informative for everyone.
+                    </p>
+                </div>
+
+                <!-- Problem Card -->
+                <div class="story-card" style="border-left: 4px solid var(--secondary-color);">
+                    <span class="section-label" style="color: var(--secondary-color);">The Challenge</span>
+                    <h2>The "Nutrition Gap"</h2>
+                    <p class="story-text">
+                        Many people cook without knowing the nutritional value of their meals, leading to unbalanced diets. Most platforms focus only on taste, ignoring health.
+                        <br><br>
+                        <strong>NutriChef closes this gap.</strong> We provide automatic calorie and macro calculations for every recipe you share or discover.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Objectives & Scope -->
+        <section class="objectives-section">
+            <div class="section-header-center">
+                <h2>Our Mission & Scope</h2>
+                <p>Built with purpose. Designed for impact.</p>
+            </div>
+
+            <div class="objectives-grid">
+                <!-- Primary -->
+                <div class="obj-card">
+                    <div class="obj-icon-box icon-primary"><i class="fa-solid fa-bullseye"></i></div>
+                    <h3>Primary Goals</h3>
+                    <ul class="check-list">
+                        <li><i class="fa-solid fa-check"></i> Upload & share custom recipes.</li>
+                        <li><i class="fa-solid fa-check"></i> Auto-calculate nutrition facts.</li>
+                        <li><i class="fa-solid fa-check"></i> Track daily calorie intake.</li>
+                        <li><i class="fa-solid fa-check"></i> Foster a supportive community.</li>
+                    </ul>
+                </div>
+
+                <!-- Secondary -->
+                <div class="obj-card">
+                    <div class="obj-icon-box icon-secondary"><i class="fa-solid fa-layer-group"></i></div>
+                    <h3>Secondary Goals</h3>
+                    <ul class="check-list">
+                        <li><i class="fa-solid fa-check"></i> Responsive & Accessible UI.</li>
+                        <li><i class="fa-solid fa-check"></i> Interactive visual analytics.</li>
+                        <li><i class="fa-solid fa-check"></i> Advanced search filtering.</li>
+                        <li><i class="fa-solid fa-check"></i> Favorites & Collections.</li>
+                    </ul>
+                </div>
+
+                <!-- Scope -->
+                <div class="obj-card">
+                    <div class="obj-icon-box icon-dark"><i class="fa-solid fa-code"></i></div>
+                    <h3>Project Scope</h3>
+                    <ul class="check-list">
+                        <li><i class="fa-solid fa-check"></i> <strong>In Scope:</strong> User Auth, Recipe CRUD, Nutrition Module, Search, User Dashboard.</li>
+                        <li style="margin-top:15px; border-top:1px dashed var(--border-color); padding-top:10px;"></li>
+                        <li class="cross-list"><i class="fa-solid fa-xmark"></i> <strong>Out of Scope:</strong> Mobile App, AI Predictions, Payment Gateway.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 4. Key Features Grid (8 Items - Balanced) -->
+    <section class="features-section">
+        <div class="container">
+            <div class="section-header-center">
+                <h2>Platform Features</h2>
+                <p>Everything you need to cook smarter and eat better.</p>
+            </div>
+            
+            <div class="features-grid">
+                <!-- 1 -->
+                <div class="feature-card">
+                    <i class="fa-solid fa-utensils feat-icon"></i>
+                    <div class="feat-title">Recipe Sharing</div>
+                    <div class="feat-desc">Upload your culinary creations.</div>
+                </div>
+                <!-- 2 -->
+                <div class="feature-card">
+                    <i class="fa-solid fa-magnifying-glass feat-icon"></i>
+                    <div class="feat-title">Smart Search</div>
+                    <div class="feat-desc">Filter by diet, time, & more.</div>
+                </div>
+                <!-- 3 -->
+                <div class="feature-card">
+                    <i class="fa-solid fa-bolt feat-icon"></i>
+                    <div class="feat-title">Nutrition Insights</div>
+                    <div class="feat-desc">Auto-calculated macros.</div>
+                </div>
+                <!-- 4 -->
+                <div class="feature-card">
+                    <i class="fa-solid fa-star feat-icon"></i>
+                    <div class="feat-title">Ratings</div>
+                    <div class="feat-desc">Share feedback with others.</div>
+                </div>
+                <!-- 5 -->
+                <div class="feature-card">
+                    <i class="fa-solid fa-heart feat-icon"></i>
+                    <div class="feat-title">Favorites</div>
+                    <div class="feat-desc">Save recipes for later.</div>
+                </div>
+                <!-- 6 -->
+                <div class="feature-card">
+                    <i class="fa-solid fa-flask feat-icon"></i>
+                    <div class="feat-title">Calorie Tracker</div>
+                    <div class="feat-desc">Monitor your daily intake.</div>
+                </div>
+                <!-- 7 (New) -->
+                <div class="feature-card">
+                    <i class="fa-solid fa-chart-pie feat-icon"></i>
+                    <div class="feat-title">Visual Reports</div>
+                    <div class="feat-desc">Analyze health trends.</div>
+                </div>
+                <!-- 8 (New) -->
+                <div class="feature-card">
+                    <i class="fa-solid fa-clock-rotate-left feat-icon"></i>
+                    <div class="feat-title">Meal History</div>
+                    <div class="feat-desc">Log your daily food diary.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main class="container">
+        
+        <!-- 5. Why NutriChef? -->
+        <section class="why-wrapper">
+            <div class="why-content">
+                <h2>Why Choose NutriChef?</h2>
+                <p style="opacity: 0.95; margin-bottom: 25px; font-size: 1.1rem;">We aren't just another recipe blog. We are a comprehensive tool designed for your health journey.</p>
+                <ul class="why-list">
+                    <li><i class="fa-solid fa-check"></i> Modern & Intuitive Interface</li>
+                    <li><i class="fa-solid fa-check"></i> Nutrition Data built-in (Rare Feature)</li>
+                    <li><i class="fa-solid fa-check"></i> Active & Supportive Community</li>
+                    <li><i class="fa-solid fa-check"></i> Perfect for Fitness Enthusiasts</li>
+                </ul>
+            </div>
+            <div class="why-image">
+                <img src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Cooking Healthy" class="why-card-img">
+            </div>
+        </section>
+
+        <!-- 6. Creator Section -->
+        <section class="team-section">
+            <div class="section-header-center">
+                <h2>Meet the Creator</h2>
+            </div>
+            
+            <div class="creator-card">
+                <div class="creator-avatar">HA</div>
+                <span class="badge-pill">Solo Developer</span>
+                <h3>H. Rehman Ali</h3>
+                <p style="color: var(--primary-color); font-weight: 700; margin-bottom: 15px; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px;">Computer Science Student</p>
+                <p style="color: var(--text-muted); font-size: 1.05rem;">
+                    Passionate about Web Engineering and solving real-world problems through elegant code. 
+                    Built NutriChef to seamlessly combine culinary arts with data science.
+                </p>
+                <div style="margin-top: 30px; font-size: 0.9rem; color: var(--text-muted); border-top: 1px solid var(--border-color); padding-top: 20px;">
+                    Web Engineering Project – 2025
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- footer -->
+    <div id="footer-placeholder"></div>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
