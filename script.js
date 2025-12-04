@@ -228,6 +228,23 @@ function initializeExplorePage() {
             });
         }
 
+                    // --- NEW: URL PARAMETER HANDLING ---
+            // Check if the URL has a category filter (e.g., ?category=Breakfast)
+            const urlParams = new URLSearchParams(window.location.search);
+            const categoryParam = urlParams.get('category');
+
+            if (categoryParam) {
+                // 1. Find the button that matches the URL parameter
+                // We look for a button inside #category-filters with the matching data-value
+                const targetBtn = document.querySelector(`#category-filters .filter-chip[data-value="${categoryParam}"]`);
+
+                if (targetBtn) {
+                    // 2. Simulate a click on that button
+                    // This triggers all your existing logic (highlighting the button, filtering the grid)
+                    targetBtn.click();
+                }
+            }
+
         // Time Chips
         const timeContainer = document.getElementById('time-filters');
         if(timeContainer) {
