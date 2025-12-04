@@ -359,6 +359,8 @@ function initializeRecipePage() {
 }
 
 
+
+
 // ==========================================
 // SECTION D: COMMUNITY PAGE (FAQ)
 // ==========================================

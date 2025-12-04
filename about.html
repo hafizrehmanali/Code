@@ -16,16 +16,10 @@
 
 </head>
 <body>
+    
+
     <div id="header-placeholder"></div>
 
-    <!-- Back Navigation -->
-    <div style="position: absolute; top: 25px; left: 25px; z-index: 1000;">
-        <a href="index.html" style="background: rgba(255,255,255,0.9); backdrop-filter: blur(5px); padding: 10px 20px; border-radius: 30px; font-weight: 600; color: #1F2937; box-shadow: 0 4px 10px rgba(0,0,0,0.1); text-decoration:none; transition:0.3s;">
-            <i class="fa-solid fa-arrow-left"></i> Home
-        </a>
-    </div>
-
-    <!-- 1. Hero Section -->
     <header class="about-hero">
         <div class="hero-content">
             <h1>About NutriChef</h1>
@@ -35,10 +29,8 @@
 
     <main class="container">
 
-        <!-- 2. Intro & Problem -->
         <section class="story-section">
             <div class="story-grid">
-                <!-- Intro Card -->
                 <div class="story-card">
                     <span class="section-label">Who We Are</span>
                     <h2>More Than Just Recipes.</h2>
@@ -49,7 +41,6 @@
                     </p>
                 </div>
 
-                <!-- Problem Card -->
                 <div class="story-card" style="border-left: 4px solid var(--secondary-color);">
                     <span class="section-label" style="color: var(--secondary-color);">The Challenge</span>
                     <h2>The "Nutrition Gap"</h2>
@@ -62,7 +53,6 @@
             </div>
         </section>
 
-        <!-- 3. Objectives & Scope -->
         <section class="objectives-section">
             <div class="section-header-center">
                 <h2>Our Mission & Scope</h2>
@@ -70,7 +60,6 @@
             </div>
 
             <div class="objectives-grid">
-                <!-- Primary -->
                 <div class="obj-card">
                     <div class="obj-icon-box icon-primary"><i class="fa-solid fa-bullseye"></i></div>
                     <h3>Primary Goals</h3>
@@ -82,7 +71,6 @@
                     </ul>
                 </div>
 
-                <!-- Secondary -->
                 <div class="obj-card">
                     <div class="obj-icon-box icon-secondary"><i class="fa-solid fa-layer-group"></i></div>
                     <h3>Secondary Goals</h3>
@@ -94,7 +82,6 @@
                     </ul>
                 </div>
 
-                <!-- Scope -->
                 <div class="obj-card">
                     <div class="obj-icon-box icon-dark"><i class="fa-solid fa-code"></i></div>
                     <h3>Project Scope</h3>
@@ -109,7 +96,6 @@
 
     </main>
 
-    <!-- 4. Key Features Grid (8 Items - Balanced) -->
     <section class="features-section">
         <div class="container">
             <div class="section-header-center">
@@ -118,53 +104,55 @@
             </div>
             
             <div class="features-grid">
-                <!-- 1 -->
                 <div class="feature-card">
                     <i class="fa-solid fa-utensils feat-icon"></i>
                     <div class="feat-title">Recipe Sharing</div>
                     <div class="feat-desc">Upload your culinary creations.</div>
                 </div>
-                <!-- 2 -->
                 <div class="feature-card">
                     <i class="fa-solid fa-magnifying-glass feat-icon"></i>
                     <div class="feat-title">Smart Search</div>
                     <div class="feat-desc">Filter by diet, time, & more.</div>
                 </div>
-                <!-- 3 -->
                 <div class="feature-card">
                     <i class="fa-solid fa-bolt feat-icon"></i>
                     <div class="feat-title">Nutrition Insights</div>
                     <div class="feat-desc">Auto-calculated macros.</div>
                 </div>
-                <!-- 4 -->
                 <div class="feature-card">
                     <i class="fa-solid fa-star feat-icon"></i>
                     <div class="feat-title">Ratings</div>
                     <div class="feat-desc">Share feedback with others.</div>
                 </div>
-                <!-- 5 -->
                 <div class="feature-card">
                     <i class="fa-solid fa-heart feat-icon"></i>
                     <div class="feat-title">Favorites</div>
                     <div class="feat-desc">Save recipes for later.</div>
                 </div>
-                <!-- 6 -->
                 <div class="feature-card">
                     <i class="fa-solid fa-flask feat-icon"></i>
                     <div class="feat-title">Calorie Tracker</div>
                     <div class="feat-desc">Monitor your daily intake.</div>
                 </div>
-                <!-- 7 (New) -->
                 <div class="feature-card">
                     <i class="fa-solid fa-chart-pie feat-icon"></i>
                     <div class="feat-title">Visual Reports</div>
                     <div class="feat-desc">Analyze health trends.</div>
                 </div>
-                <!-- 8 (New) -->
                 <div class="feature-card">
                     <i class="fa-solid fa-clock-rotate-left feat-icon"></i>
                     <div class="feat-title">Meal History</div>
                     <div class="feat-desc">Log your daily food diary.</div>
+                </div>
+                <div class="feature-card">
+                    <i class="fa-solid fa-list-check feat-icon"></i>
+                    <div class="feat-title">Smart List</div>
+                    <div class="feat-desc">Auto-generate shopping lists.</div>
+                </div>
+                <div class="feature-card">
+                    <i class="fa-solid fa-mobile-screen feat-icon"></i>
+                    <div class="feat-title">Kitchen Mode</div>
+                    <div class="feat-desc">Distraction-free cooking view.</div>
                 </div>
             </div>
         </div>
@@ -172,7 +160,6 @@
 
     <main class="container">
         
-        <!-- 5. Why NutriChef? -->
         <section class="why-wrapper">
             <div class="why-content">
                 <h2>Why Choose NutriChef?</h2>
@@ -189,28 +176,42 @@
             </div>
         </section>
 
-        <!-- 6. Creator Section -->
         <section class="team-section">
             <div class="section-header-center">
-                <h2>Meet the Creator</h2>
+                <h2>Meet the Team</h2>
+                <p style="color: var(--text-muted);">The minds behind NutriChef.</p>
             </div>
             
-            <div class="creator-card">
-                <div class="creator-avatar">HA</div>
-                <span class="badge-pill">Solo Developer</span>
-                <h3>H. Rehman Ali</h3>
-                <p style="color: var(--primary-color); font-weight: 700; margin-bottom: 15px; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px;">Computer Science Student</p>
-                <p style="color: var(--text-muted); font-size: 1.05rem;">
-                    Passionate about Web Engineering and solving real-world problems through elegant code. 
-                    Built NutriChef to seamlessly combine culinary arts with data science.
-                </p>
-                <div style="margin-top: 30px; font-size: 0.9rem; color: var(--text-muted); border-top: 1px solid var(--border-color); padding-top: 20px;">
-                    Web Engineering Project – 2025
+            <div class="team-grid">
+                <div class="creator-card">
+                    <div class="creator-avatar">
+                        <img src="/assest/images/H Rehman Ali.jpeg" alt="H. Rehman Ali">
+                    </div>
+                    <span class="badge-pill">Lead Developer</span>
+                    <h3>H. Rehman Ali</h3>
+                    <p style="color: var(--primary-color); font-weight: 700; margin-bottom: 15px; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;">Computer Science Student</p>
+                    <p style="color: var(--text-muted); font-size: 0.95rem;">
+                        Passionate about Web Engineering and solving real-world problems through elegant code. Built NutriChef to combine tech & nutrition.
+                    </p>
+                </div>
+
+                <div class="creator-card">
+                    <div class="creator-avatar avatar-secondary">
+                        <img src="https://ui-avatars.com/api/?name=P+N&background=random&size=100" alt="Partner Name">
+                    </div>
+                    <span class="badge-pill">Co-Creator</span>
+                    <h3>Ali Hassan</h3>
+                    <p style="color: var(--secondary-color); font-weight: 700; margin-bottom: 15px; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;">Team Member</p>
+                    <p style="color: var(--text-muted); font-size: 0.95rem;">
+                        Contributed to the vision, planning, and concept development of the NutriChef platform. Supporting the mission for healthier living.
+                    </p>
                 </div>
             </div>
         </section>
 
     </main>
+
+ 
 
     <!-- footer -->
     <div id="footer-placeholder"></div>
