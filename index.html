@@ -9,10 +9,12 @@
     
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="Public-Pages/style.css">
 </head>
 <body>
     <div id="header-placeholder"></div>
+
+
     <section class="hero">
         <div class="blob blob-green"></div>
         <div class="blob blob-orange"></div>
@@ -24,13 +26,13 @@
                     <h1>Cook Smart. <br> <span class="text-primary">Eat Healthy.</span> <br> Track Nutrition.</h1>
                     <p>Discover thousands of recipes, share your culinary masterpieces, and keep track of your daily calories effortlessly.</p>
                     
-                    <div class="hero-search">
-                        <input type="text" placeholder="Search recipes (e.g. Avocado Toast)">
-                        <button><i class="fa-solid fa-search"></i></button>
-                    </div>
+                    <form action="Public-Pages/Explore-Recipes.html" method="GET" class="hero-search">
+                        <input name="search" id="recipe-search-input" type="text" placeholder="Search recipes (e.g. Avocado Toast)">
+                        <button type="submit" id="recipe-search-btn"><i class="fa-solid fa-search"></i></button>
+                    </form>
 
                     <div class="hero-buttons">
-                        <button class="btn btn-primary"><a href="Explore-Recipes.html">Explore Recipes</a></button>
+                        <a class="btn btn-primary" href="Explore-Recipes.html">Explore Recipes</a>
                         <button class="btn btn-outline"><i class="fa-solid fa-plus text-primary"></i> Add Your Recipe</button>
                     </div>
                 </div>
@@ -65,7 +67,7 @@
                     <h2>Popular Recipes This Week</h2>
                     <p style="color: var(--text-muted);">Hand-picked by our nutrition experts and community.</p>
                 </div>
-                <a href="#" class="view-all">View All <i class="fa-solid fa-arrow-right"></i></a>
+                <a href="Explore-Recipes.html" class="view-all">View All <i class="fa-solid fa-arrow-right"></i></a>
             </div>
 
             <div class="recipes-grid">
@@ -82,7 +84,7 @@
                         <p class="card-desc">A fresh mix of quinoa, avocado, and kale.</p>
                         <div class="card-footer">
                             <span class="calories"><i class="fa-solid fa-fire"></i> 320 Kcal</span>
-                            <button class="view-btn">View Recipe</button>
+                            <a href="recipe-detail.html"><button class="view-btn">View Recipe</button></a>
                         </div>
                     </div>
                 </div>
@@ -100,7 +102,7 @@
                         <p class="card-desc">Juicy chicken breast with lemon herbs.</p>
                         <div class="card-footer">
                             <span class="calories"><i class="fa-solid fa-fire"></i> 480 Kcal</span>
-                            <button class="view-btn">View Recipe</button>
+                            <a href="recipe-detail.html"><button class="view-btn">View Recipe</button></a>
                         </div>
                     </div>
                 </div>
@@ -118,7 +120,7 @@
                         <p class="card-desc">Spinach, apple, and ginger refreshing blend.</p>
                         <div class="card-footer">
                             <span class="calories"><i class="fa-solid fa-fire"></i> 150 Kcal</span>
-                            <button class="view-btn">View Recipe</button>
+                            <a href="recipe-detail.html"><button class="view-btn">View Recipe</button></a>
                         </div>
                     </div>
                 </div>
@@ -136,7 +138,7 @@
                         <p class="card-desc">Perfect breakfast with protein and healthy fats.</p>
                         <div class="card-footer">
                             <span class="calories"><i class="fa-solid fa-fire"></i> 380 Kcal</span>
-                            <button class="view-btn">View Recipe</button>
+                            <a href="recipe-detail.html"><button class="view-btn">View Recipe</button></a>
                         </div>
                     </div>
                 </div>
@@ -150,8 +152,10 @@
             
             <div class="categories-wrapper">
                 <div class="category-card">
-                   <a href="Explore-Recipes.html?category=HighProtein"> <div class="cat-icon cat-red"><i class="fa-solid fa-drumstick-bite"></i></div>
-                    <span class="cat-title">High Protein</span> </a>
+                   <a href="Explore-Recipes.html?category=HighProtein"> 
+                       <div class="cat-icon cat-red"><i class="fa-solid fa-drumstick-bite"></i></div>
+                       <span class="cat-title">High Protein</span> 
+                   </a>
                 </div>
                 <div class="category-card">
                    <a href="Explore-Recipes.html?category=Vegan"> 
@@ -174,8 +178,10 @@
                     </a>
                 </div>
                 <div class="category-card">
-                    <a href="Explore-Recipes.html?category=Desserts"><div class="cat-icon cat-purple"><i class="fa-solid fa-ice-cream"></i></div>
-                    <span class="cat-title">Desserts</span></a>
+                    <a href="Explore-Recipes.html?category=Desserts">
+                        <div class="cat-icon cat-purple"><i class="fa-solid fa-ice-cream"></i></div>
+                        <span class="cat-title">Desserts</span>
+                    </a>
                 </div>
             </div>
         </div>
@@ -297,10 +303,8 @@
         </div>
     </section>
 
-    <!-- footer -->
     <div id="footer-placeholder"></div>
 
-    <!-- JavaScript -->
-    <script src="script.js"></script>
+    <script src="Public-Pages/script.js"></script>
 </body>
 </html>

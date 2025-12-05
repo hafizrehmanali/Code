@@ -179,7 +179,7 @@ body.dark-mode header { border-bottom: 1px solid var(--border-color); }
 .logo { display: flex; align-items: center; gap: 10px; font-size: 1.5rem; font-weight: 700; font-family: 'Poppins', sans-serif; flex-shrink: 0; }
 .logo-icon { width: 40px; height: 40px; background-color: var(--primary-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem; }
 
-.nav-links { display: flex; gap: 30px; }
+.nav-links { display: flex; gap: 30px; align-items: center; }
 .nav-links a { color: var(--text-muted); font-weight: 500; }
 .nav-links a:hover { color: var(--primary-color); }
 
@@ -779,30 +779,91 @@ body.dark-mode .rating { background: rgba(245, 158, 11, 0.2); }
 }
 
 /* ==========================================================================
-   8. ABOUT PAGE
+   8. ABOUT PAGE (FIXED)
    ========================================================================== */
 .about-hero {
-  background: url('https://images.unsplash.com/photo-1490645935967-10de6ba17061?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
-  background-size: cover; background-position: center; background-attachment: fixed;
-  height: 500px; display: flex; align-items: center; justify-content: center;
-  text-align: center; color: white; margin-bottom: 80px; position: relative; margin-top: 80px;
+  /* ... existing styles ... */
+  background: linear-gradient(to right, rgba(0,0,0,0.3), rgba(0,0,0,0.7)), 
+              url('https://images.unsplash.com/photo-1490645935967-10de6ba17061?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
+  background-size: cover; 
+  background-position: center; 
+  background-attachment: fixed;
+  height: 400px;
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+  text-align: center; 
+  color: white; 
+  margin-top: 80px;
+  position: relative;
+  
+  /* --- THE FIX IS HERE --- */
+  /* This forces the hero to sit BEHIND the navbar (which is 1000) */
+  z-index: 1; 
 }
-.about-hero::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); }
 
-/* Specific scope for About Hero content */
 .about-hero .about-hero-content {
-  position: relative; z-index: 2; background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-  padding: 40px 60px; border-radius: 30px; border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.2); max-width: 800px;
-  margin: 0 20px; display: flex; flex-direction: column; align-items: center;
+  position: relative; 
+  z-index: 2; 
+  padding: 20px; 
+  max-width: 900px;
+  margin: 0 20px; 
+  display: flex; 
+  flex-direction: column; 
+  align-items: center;
 }
-.about-hero .hero-content h1 {
-  font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 800; margin-bottom: -50px;
-  line-height: 1.1; letter-spacing: -1px; text-shadow: 0 2px 10px rgba(0,0,0,0.1); color: #ffffff;
-}
-.about-hero .hero-content p { font-size: 1.2rem; opacity: 0.95; font-weight: 400; color: #f3f4f6; }
 
+.about-hero .about-hero-content h1 {
+  font-family: sans-serif;
+  font-size: clamp(3rem, 6vw, 5rem);
+  font-weight: 800; 
+  margin: 0 0 15px 0;
+  line-height: 1.1; 
+  text-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  color: #ffffff;
+}
+
+.about-hero .about-hero-content p { 
+  font-size: 1.25rem; 
+  font-weight: 400; 
+  color: #f3f4f6;
+  margin: 0;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+/* --- THE GREEN DECORATIVE LINE --- */
+/* This was missing from your code! */
+.about-hero .about-hero-content::after {
+  content: '';
+  display: block;
+  width: 80px;        
+  height: 5px;        
+  background-color: #10B981; /* Green Color */
+  margin-top: 30px;   
+  border-radius: 2px;
+}
+
+/* H1 Styling - Big and Bold */
+.about-hero .about-hero-content h1 {
+  font-family: sans-serif; /* Ensure you use your site's main font */
+  font-size: clamp(3rem, 6vw, 5rem); /* Big text like the image */
+  font-weight: 800; 
+  margin: 0 0 15px 0;
+  line-height: 1.1; 
+  text-shadow: 0 4px 10px rgba(0,0,0,0.3); /* subtle shadow to pop against bg */
+  color: #ffffff;
+}
+
+/* Paragraph Styling */
+.about-hero .about-hero-content p { 
+  font-size: 1.25rem; 
+  font-weight: 400; 
+  color: #f3f4f6;
+  margin: 0;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
 .story-section { margin-bottom: 100px; }
 .story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
 .story-card {
@@ -952,33 +1013,85 @@ body.dark-mode .icon-dark { background: rgba(255, 255, 255, 0.1); }
 @keyframes popIn { 0% { transform: scale(0); } 100% { transform: scale(1); } }
 
 /* ==========================================================================
-   10. FAQ SECTION (Fixed Spacing)
+   10. FAQ SECTION (FINAL FIX)
    ========================================================================== */
 .faq-hero {
-  /* Fix: Reduced min-height from 350px to 300px for better vertical rhythm */
-  min-height: 300px;
-  /* Fix: Added padding to ensure content doesn't touch edges on resize */
+  min-height: 350px; 
   padding: 60px 20px;
-  display: flex; flex-direction: column; justify-content: center; align-items: center;
-  background: url('https://images.unsplash.com/photo-1495521821757-a1efb6729352?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
-  background-size: cover; background-position: center; background-attachment: fixed;
-  position: relative; color: white; margin-top: 80px; margin-bottom: 40px; text-align: center;
-}
-.faq-hero::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 1; }
-.faq-hero .hero-content { position: relative; z-index: 2; width: 100%; max-width: 800px; padding: 0 20px; }
-.faq-hero h1 {
-  font-size: 3rem; font-weight: 800;
-  /* Fix: Reduced margin-bottom from 40px to 20px to remove "extra space" look */
-  margin-bottom: 20px;
-  line-height: 1.1; color: white; text-shadow: 0 2px 10px rgba(0,0,0,0.3);
-}
-.faq-hero p {
-  font-size: 1.2rem; color: rgba(255, 255, 255, 0.95);
-  /* Fix: Corrected syntax error (was empty) */
-  margin-top: 0;
-  text-shadow: 0 1px 5px rgba(0,0,0,0.3);
+  display: flex; 
+  flex-direction: column; 
+  justify-content: center; 
+  align-items: center;
+  
+  /* Background with overlay */
+  background: linear-gradient(to right, rgba(0,0,0,0.4), rgba(0,0,0,0.7)), 
+              url('https://images.unsplash.com/photo-1495521821757-a1efb6729352?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
+  background-size: cover; 
+  background-position: center; 
+  background-attachment: fixed;
+  
+  position: relative; 
+  color: white; 
+  margin-top: 80px; 
+  text-align: center;
+  z-index: 1; 
 }
 
+/* --- THE FIX --- */
+.faq-hero .hero-content { 
+  /* This overrides the 'grid' layout from your home page styles */
+  display: flex !important;  
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  
+  position: relative; 
+  z-index: 2; 
+  width: 100%; 
+  max-width: 1200px; 
+}
+
+.faq-hero h1 {
+  /* Adjusted font size to fit on one line */
+  font-size: clamp(2rem, 3.5vw, 4rem); 
+  font-weight: 800;
+  margin: 0 0 -40px 0; 
+  line-height: 1; 
+  color: #ffffff; 
+  text-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  text-align: center;
+  
+  /* Force text to stay on one line on large screens */
+  white-space: nowrap;
+}
+
+/* On mobile, let it wrap so it doesn't break the screen */
+@media (max-width: 900px) {
+  .faq-hero h1 {
+    white-space: normal;
+    font-size: 2.5rem;
+  }
+}
+
+.faq-hero p {
+  font-size: 1.25rem; 
+  color: #f3f4f6;
+  margin: 0;
+  font-weight: 400;
+  text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  text-align: center;
+}
+
+/* Green Line */
+.faq-hero .hero-content::after {
+  content: '';
+  display: block;
+  width: 80px;        
+  height: 5px;        
+  background-color: #10B981; 
+  margin: -30px auto 0; 
+  border-radius: 2px;
+}
 .faq-section { margin-bottom: 0px; padding: 100px 0; max-width: 800px; margin: 0 auto; }
 .category-title {
   font-size: 1.5rem; font-weight: 700; margin-bottom: 20px; padding-left: 15px;
