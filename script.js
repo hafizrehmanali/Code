@@ -358,7 +358,95 @@ function initializeRecipePage() {
     }
 }
 
+// =================================================
+// conteact page
+// =================================================
 
+// --- Form Handling ---
+        function handleSubmit(event) {
+            event.preventDefault(); // Stop actual submission
+            
+            // Show loading state (optional, for realism)
+            const btn = document.querySelector('.btn-submit');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = 'Sending...';
+            btn.style.opacity = '0.7';
+
+            // Simulate server delay
+            setTimeout(() => {
+                document.getElementById('successMessage').classList.add('active');
+                btn.innerHTML = originalText;
+                btn.style.opacity = '1';
+                document.getElementById('contactForm').reset();
+            }, 1000);
+        }
+
+        function resetForm() {
+            document.getElementById('successMessage').classList.remove('active');
+        }
+
+
+
+// --- Accordion Logic ---
+        const questions = document.querySelectorAll('.faq-question');
+
+        questions.forEach(question => {
+            question.addEventListener('click', () => {
+                const item = question.parentElement;
+                const answer = item.querySelector('.faq-answer');
+                
+                // Toggle current item
+                item.classList.toggle('active');
+
+                // Smooth expansion
+                if (item.classList.contains('active')) {
+                    answer.style.maxHeight = answer.scrollHeight + "px";
+                } else {
+                    answer.style.maxHeight = null;
+                }
+
+                // Optional: Close others when one opens (Accordian behavior)
+                /* questions.forEach(q => {
+                    const otherItem = q.parentElement;
+                    if (otherItem !== item) {
+                        otherItem.classList.remove('active');
+                        otherItem.querySelector('.faq-answer').style.maxHeight = null;
+                    }
+                });
+                */
+            });
+        });
+
+/* =========================================
+   HOME PAGE FAQ LOGIC
+   ========================================= */
+document.addEventListener('DOMContentLoaded', function() {
+    
+    // Select the Home Page buttons
+    const homeFaqBtns = document.querySelectorAll('.home-faq-btn');
+
+    homeFaqBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // 1. Toggle the arrow rotation on the button
+            btn.classList.toggle('active');
+
+            // 2. Select the content div (which should be right next to the button)
+            const content = btn.nextElementSibling;
+
+            // 3. Toggle the "open" class for padding
+            content.classList.toggle('open');
+
+            // 4. Smooth Height Animation
+            if (content.style.maxHeight) {
+                // If it is already open, close it
+                content.style.maxHeight = null;
+            } else {
+                // If it is closed, open it to the exact height of the text
+                content.style.maxHeight = content.scrollHeight + "px";
+            }
+        });
+    });
+});
 
 
 // ==========================================
