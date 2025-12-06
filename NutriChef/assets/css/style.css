@@ -1197,3 +1197,356 @@ body.dark-mode .icon-dark { background: rgba(255, 255, 255, 0.1); }
   .faq-hero p { font-size: 1rem; }
   .faq-question { font-size: 0.95rem; padding: 15px 20px; }
 }
+
+
+
+
+/* 
+==================================================================================
+            Authntication pages
+================================================================================== */
+
+
+
+/* ==========================================================================
+   1. GLOBAL LAYOUT & UTILITIES
+   ========================================================================== */
+/* Fix 1: The Wrapper that centers everything but respects the Navbar */
+.auth-wrapper {
+    display: flex;
+    align-items: flex-start; /* Starts from top, not middle */
+    justify-content: center; /* Centers horizontally */
+    padding-top: 110px;      /* Pushes content down below the fixed Navbar */
+    min-height: 100vh;
+    width: 100%;
+    box-sizing: border-box;
+    background: var(--bg-gradient); /* Uses your global variable */
+    padding-bottom: 50px;
+}
+
+/* ==========================================================================
+   2. AUTH CONTAINER (Shared by Login, Register, Forgot Password)
+   ========================================================================== */
+.auth-container, .login-container {
+    background: var(--bg-card);
+    width: 100%;
+    max-width: 1000px;
+    min-height: 600px;       /* Consistent height */
+    border-radius: 20px;
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 50/50 split */
+    border: 1px solid var(--border-color);
+}
+
+/* --- Left Side: Image --- */
+.auth-image-side, .login-image-side {
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 40px;
+    color: white;
+}
+
+/* Images for specific pages */
+.login-image-side { background-image: url('https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=800&q=80'); }
+.auth-image-side   { background-image: url('https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=800&q=80'); }
+
+/* Dark Overlay */
+.auth-image-side::before, .login-image-side::before {
+    content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.1));
+}
+
+.image-content { position: relative; z-index: 2; }
+
+/* Text on Image - FORCED WHITE */
+.image-content h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+    font-weight: 700;
+    color: #ffffff !important; 
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+.image-content p {
+    font-size: 1rem; opacity: 0.9; line-height: 1.5; color: #f3f4f6 !important;
+}
+
+/* --- Right Side: Form --- */
+.auth-form-side, .login-form-side {
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative; /* For absolute positioning of Back Link */
+}
+
+/* --- Header & LOGO FIX --- */
+.form-header { text-align: center; margin-bottom: 30px; }
+
+/* THE FIX: This centers the logo perfectly */
+.logo-icon {
+    display: inline-flex;  /* Allows centering */
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    width: 70px;           /* Fixed width */
+    height: 70px;          /* Fixed height */
+    background: rgba(16, 185, 129, 0.1); /* Light green circle */
+    border-radius: 50%;    /* Circle shape */
+    color: var(--primary-color);
+    margin: 0 auto 15px;   /* 'auto' on left/right centers it */
+}
+
+.form-header h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 5px;
+}
+.form-header p { color: var(--text-muted); font-size: 0.95rem; }
+
+/* --- Inputs & Grid --- */
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.form-group { margin-bottom: 20px; }
+.form-group.full-width { grid-column: span 2; }
+
+.form-label { display: block; margin-bottom: 8px; font-weight: 500; color: var(--text-main); font-size: 0.9rem; }
+.input-wrapper { position: relative; }
+.input-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
+
+.form-input {
+    width: 100%; padding: 12px 12px 12px 40px;
+    border-radius: 12px; border: 1px solid var(--border-color);
+    background: var(--input-bg); color: var(--text-main);
+    font-family: 'Inter', sans-serif; font-size: 0.95rem; transition: 0.3s;
+}
+.form-input:focus {
+    outline: none; border-color: var(--primary-color);
+    background: var(--bg-card); box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+/* --- Actions & Buttons --- */
+.form-actions { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; font-size: 0.9rem; }
+.checkbox-wrapper { display: flex; align-items: center; gap: 8px; color: var(--text-muted); cursor: pointer; }
+/* --- FIX: Make Terms Link Green & Bold Again --- */
+.checkbox-wrapper a {
+    color: var(--primary-color); /* Restores the Green color */
+    font-weight: 600;            /* Makes it bold so it stands out */
+    text-decoration: none;       /* Removes underline by default */
+    transition: color 0.3s ease;
+}
+
+.checkbox-wrapper a:hover {
+    color: var(--primary-hover); /* Darker green on hover */
+    text-decoration: underline;  /* Adds underline on hover */
+}
+.checkbox-wrapper input { cursor: pointer; accent-color: var(--primary-color); }
+
+.forgot-link, .back-home { color: var(--text-muted); text-decoration: none; transition: 0.3s; }
+.forgot-link:hover, .back-home:hover { color: var(--primary-color); }
+
+/* Back Button Position (Top Right) */
+.back-home {
+    position: absolute; top: 25px; right: 25px; font-size: 0.85rem; display: flex; align-items: center; gap: 5px;
+}
+
+.btn-login, .btn-auth {
+    width: 100%; padding: 14px;
+    background: var(--primary-color); color: white;
+    border: none; border-radius: 12px;
+    font-size: 1rem; font-weight: 600; cursor: pointer; transition: 0.3s;
+    box-shadow: 0 4px 6px rgba(16, 185, 129, 0.2);
+}
+.btn-login:hover, .btn-auth:hover {
+    background: var(--primary-hover); transform: translateY(-2px);
+}
+
+.form-footer { text-align: center; margin-top: 25px; padding-top: 20px; border-top: 1px solid var(--border-color); color: var(--text-muted); font-size: 0.9rem; }
+.form-footer a { color: var(--primary-color); font-weight: 600; text-decoration: none; }
+
+/* --- Error Messages --- */
+.error-message {
+    background-color: #fef2f2; color: #ef4444;
+    padding: 10px; border-radius: 8px; border: 1px solid #fecaca;
+    font-size: 0.85rem; margin-bottom: 20px;
+    display: none; align-items: center; gap: 8px;
+}
+
+/* --- Terms Header Fix --- */
+.terms-header {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 160px 20px 80px; /* Safe padding for navbar */
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
+    border-bottom: 1px solid var(--border-color);
+    position: relative;
+}
+
+/* --- Mobile Responsiveness --- */
+@media (max-width: 900px) {
+    .auth-container, .login-container { grid-template-columns: 1fr; max-width: 500px; height: auto; }
+    .auth-image-side, .login-image-side { display: none; }
+    .auth-form-side, .login-form-side { padding: 40px 30px; }
+    .form-grid { grid-template-columns: 1fr; }
+    .form-group.full-width { grid-column: span 1; }
+}
+/* ==========================================================================
+   TERMS & CONDITIONS PAGE STYLES
+   ========================================================================== */
+
+.terms-header {
+    /* --- LAYOUT FIX: Force Vertical Stacking --- */
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    /* --- PADDING FIX: Clear the Fixed Navbar --- */
+    /* 160px Top = Pushes title down below the Navbar */
+    padding: 90px 10px 0px;
+
+    /* --- VISUALS --- */
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
+    
+    /* --- REMOVED LINE: As you requested --- */
+    border-bottom: none; 
+    
+    position: relative;
+}
+
+.terms-header h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--text-main);
+    margin-bottom: 15px;
+    line-height: 1.2;
+}
+
+.terms-header p {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.15rem;
+    color: var(--text-muted);
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.last-updated {
+    display: inline-block;
+    margin-top: 25px;
+    font-size: 0.9rem;
+    color: var(--primary-color);
+    font-weight: 600;
+    background: rgba(16, 185, 129, 0.1);
+    padding: 8px 20px;
+    border-radius: 50px;
+}
+
+/* --- Content Area --- */
+.terms-content {
+    max-width: 850px;
+    margin: 0 auto 100px;
+    padding: 40px 25px 0;
+}
+
+.terms-section { margin-bottom: 60px; }
+
+.terms-section h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    /* This is the small underline for sub-headings (1. Introduction, etc.) */
+    /* If you want to remove these too, change to 'none' */
+    border-bottom: 2px solid rgba(16, 185, 129, 0.2);
+}
+
+.terms-section p {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+}
+
+/* --- Lists --- */
+.terms-section ul { list-style: none; padding-left: 10px; margin-bottom: 25px; }
+
+.terms-section ul li {
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 15px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    font-size: 1.05rem;
+}
+
+.terms-section ul li::before {
+    content: '\f00c'; /* FontAwesome Check Icon */
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    left: 0; top: 4px;
+    color: var(--primary-color);
+    font-size: 1rem;
+}
+
+/* --- Components --- */
+.highlight-box {
+    background: #fffbeb;
+    border-left: 4px solid var(--secondary-color);
+    padding: 25px 30px;
+    border-radius: 0 12px 12px 0;
+    margin: 30px 0;
+}
+.highlight-box h3 { font-size: 1.1rem; color: #92400e; margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+.highlight-box p { color: #b45309; margin: 0; }
+
+.disclaimer-section {
+    background: #fef2f2;
+    border: 1px solid #fee2e2;
+    padding: 35px;
+    border-radius: 16px;
+}
+.disclaimer-section h2 { border-bottom-color: #ef4444; color: #991b1b; }
+.disclaimer-section p, .disclaimer-section li { color: #7f1d1d; }
+.disclaimer-section ul li::before { color: #ef4444; content: '\f071'; /* Warning Icon */ }
+
+.contact-box {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    padding: 40px;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    margin-top: 20px;
+}
+.contact-box a {
+    color: var(--primary-color);
+    font-weight: 600;
+    font-size: 1.3rem;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: 0.3s;
+}
+.contact-box a:hover { color: var(--primary-hover); }
+
+/* --- Mobile Responsiveness --- */
+@media (max-width: 768px) {
+    .terms-header { padding-top: 120px; }
+    .terms-header h1 { font-size: 2.2rem; }
+}

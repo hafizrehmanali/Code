@@ -1,0 +1,63 @@
+<header id="main-header">
+    <div class="header-content">
+        <div class="logo" onclick="window.location.href='index.html'">
+            <div class="logo-icon"><i class="fa-solid fa-leaf"></i></div>
+            <span>Nutri<span class="text-primary">Chef</span></span>
+        </div>
+
+        <nav class="nav-links">
+            <a href="index.html">Home</a> 
+            <a href="views/public/explore.html">Recipes</a>
+            <a href="views/public/categories.html">Categories</a>
+            <a href="views/user/nutrition/tracker.html">Nutrition Tracker</a>
+            <a href="views/public/about.html">About</a>
+            <a href="views/public/contact.html">Contact</a>
+            <a href="views/public/faq.html">FAQ</a>
+        </nav>
+
+        <div class="header-actions">
+            <div class="search-bar">
+                <i class="fa-solid fa-search search-icon"></i>
+                <input type="text" placeholder="Search...">
+            </div>
+            
+            <button class="theme-toggle-btn" id="theme-toggle" title="Toggle Dark Mode">
+                <i class="fa-solid fa-moon"></i>
+            </button>
+            
+            <a href="views/auth/login.html" class="login-btn-link">
+                <button class="login-btn">Login</button>
+            </a>
+            
+            <a href="views/user/add-recipe.html" class="add-recipe-link">
+                <button class="btn btn-primary btn-sm">Add Recipe</button>
+            </a>
+        </div>
+
+        <button class="mobile-menu-btn" id="mobile-menu-btn">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+    </div>
+
+    <div class="mobile-menu" id="mobile-menu">
+        <a href="index.html">Home</a>
+        <a href="views/public/explore.html">Recipes</a>
+        <a href="views/user/nutrition/tracker.html">Nutrition Tracker</a>
+        <a href="views/public/about.html">About</a>
+        <a href="views/public/contact.html">Contact</a>
+        
+        <div style="border-top: 1px solid var(--border-color); margin-top: 10px; padding-top: 10px;"></div>
+        
+        <button class="btn btn-outline" id="theme-toggle-mobile" style="width: 100%; margin-top: 10px; display: flex; justify-content: center; gap: 10px;">
+            <i class="fa-solid fa-moon"></i> Toggle Theme
+        </button>
+        
+        <a href="views/auth/login.html" style="width: 100%; text-decoration: none;">
+            <button class="btn btn-outline" style="width: 100%; margin-top: 10px;">Login</button>
+        </a>
+        
+        <a href="views/user/add-recipe.html" style="width: 100%; text-decoration: none;">
+            <button class="btn btn-primary" style="width: 100%; margin-top: 10px;">Add Recipe</button>
+        </a>
+    </div>
+</header>

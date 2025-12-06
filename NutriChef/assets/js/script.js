@@ -1,34 +1,53 @@
 document.addEventListener("DOMContentLoaded", function() {
 
     // ==========================================
-    // 1. GLOBAL: HEADER & FOOTER LOADING
+    // 1. GLOBAL: SMART PATH DETECTION
     // ==========================================
 
-    // Helper: Detect if we are in the Root folder or Public-Pages folder
-    function isRootPage() {
+    /**
+     * This calculates how many folders we need to go UP 
+     * to reach the "assets" and "components" folders.
+     */
+    function getBasePath() {
         const path = window.location.pathname;
-        // If path doesn't contain 'Public-Pages', we assume we are at Root (index.html)
-        return !path.includes('/Public-Pages/');
+        
+        // If we are deep inside the Nutrition Tracker (3 levels down)
+        if (path.includes('/nutrition/')) {
+            return "../../../";
+        }
+        // If we are inside any other View folder (2 levels down)
+        // (checks for 'views' folder presence)
+        else if (path.includes('/views/')) {
+            return "../../";
+        }
+        
+        // Otherwise, we are at the Root (index.html)
+        return "./";
     }
 
-    // Determine path for fetching assets (images/html)
-    const basePath = isRootPage() ? "Public-Pages/" : "";
+    const basePath = getBasePath();
+    console.log("Loading assets from:", basePath); // Check Console to see if this works!
+
+    // ==========================================
+    // 2. LOAD HEADER & FOOTER
+    // ==========================================
 
     // Load Header
     const headerPlaceholder = document.getElementById('header-placeholder');
     if (headerPlaceholder) {
-        fetch(basePath + "header.html")
+        // NOTICE: We now add "components/" to the path
+        fetch(basePath + "components/header.html")
             .then(response => {
-                if (!response.ok) throw new Error("Header not found");
+                if (!response.ok) throw new Error("Header not found at " + basePath);
                 return response.text();
             })
             .then(data => {
                 headerPlaceholder.innerHTML = data;
                 
-                // CRITICAL: Fix links after loading HTML
-                updateNavigationLinks(); 
+                // Fix the links inside the header (Home, Login, etc.)
+                updateNavigationLinks(headerPlaceholder, basePath);
                 
-                // Initialize Header Logic (Mobile menu, etc.)
+                // Run the header logic (Mobile menu, Dark mode)
                 initializeHeader(); 
             })
             .catch(err => console.error('Error loading header:', err));
@@ -37,7 +56,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Load Footer
     const footerPlaceholder = document.getElementById('footer-placeholder');
     if (footerPlaceholder) {
-        fetch(basePath + "footer.html")
+        fetch(basePath + "components/footer.html")
             .then(response => {
                 if (!response.ok) throw new Error("Footer not found");
                 return response.text();
@@ -45,9 +64,10 @@ document.addEventListener("DOMContentLoaded", function() {
             .then(data => {
                 footerPlaceholder.innerHTML = data;
                 
-                // Fix Footer Links too if you have them
-                updateNavigationLinks(footerPlaceholder);
+                // Fix the links inside the footer
+                updateNavigationLinks(footerPlaceholder, basePath);
 
+                // Auto-update copyright year
                 const yearSpan = document.getElementById('year');
                 if(yearSpan) yearSpan.textContent = new Date().getFullYear();
             })
@@ -55,44 +75,33 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // ==========================================
-    // 2. DYNAMIC LINK FIXER
+    // 3. DYNAMIC LINK FIXER (Updated)
     // ==========================================
-    function updateNavigationLinks(container = document) {
+    function updateNavigationLinks(container, basePath) {
         const links = container.querySelectorAll('a');
-        const isRoot = isRootPage();
 
         links.forEach(link => {
             const href = link.getAttribute('href');
             
-            // Skip empty links, hashes, or external links
-            if (!href || href.startsWith('#') || href.startsWith('http') || href.startsWith('mailto')) return;
+            // Skip hash links (#tracker), emails, or external sites
+            if (!href || href.startsWith('#') || href.startsWith('mailto') || href.startsWith('http')) return;
 
-            // Logic to rewrite paths
-            if (isRoot) {
-                // WE ARE AT ROOT (index.html)
-                if (href === 'index.html') {
-                    link.href = "./index.html"; // Stay here
-                } else {
-                    // Go into folder for other pages
-                    link.href = "Public-Pages/" + href; 
-                }
-            } else {
-                // WE ARE INSIDE FOLDER (about.html, etc.)
-                if (href === 'index.html') {
-                    // Go UP one level for Home
-                    link.href = "../index.html"; 
-                } else {
-                    // Stay in same folder
-                    link.href = href; 
-                }
+            // If it is a link to the Root Index
+            if (href === 'index.html' || href === './index.html') {
+                link.href = basePath + "index.html";
+            }
+            // If it is a link to another View (like views/auth/login.html)
+            else if (href.includes('views/')) {
+                // If we are at root, leave it alone. 
+                // If we are deep, add ../../ to front.
+                link.href = basePath + href; 
             }
         });
     }
 
     // ==========================================
-    // 3. PAGE SPECIFIC INITIALIZATION
+    // 4. PAGE SPECIFIC INITIALIZATION
     // ==========================================
-    
     if (document.querySelector('.recipes-grid')) {
         initializeExplorePage();   
     }
@@ -102,9 +111,8 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     
     initializeCommunityPage(); 
-    initializeHomeFaq(); // Moved this function call here
+    initializeHomeFaq();
 });
-
 
 // ==========================================
 // SECTION A: HEADER LOGIC
@@ -429,3 +437,122 @@ function resetForm() {
     const successMsg = document.getElementById('successMessage');
     if(successMsg) successMsg.classList.remove('active');
 }
+
+
+
+
+// =========================
+// auth Page js 
+// ========================
+
+// --- Simulated Login Logic ---
+        function handleLogin(event) {
+            event.preventDefault(); // Stop page reload
+            
+            const btn = document.querySelector('.btn-login');
+            const errorMsg = document.getElementById('loginError');
+            
+            // 1. Reset state
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Logging in...';
+            btn.style.opacity = '0.8';
+            errorMsg.style.display = 'none';
+
+            // 2. Simulate Server Delay (1.5 seconds)
+            setTimeout(() => {
+                // For demo purposes, let's just pretend login failed first to show the error style
+                // (In a real app, you would check credentials here)
+                
+                // Randomly succeed or fail for demo fun
+                const isSuccess = Math.random() > 0.5;
+
+                if (isSuccess) {
+                    btn.innerHTML = 'Success!';
+                    btn.style.backgroundColor = '#059669';
+                    window.location.href = 'index.html'; // Redirect to home
+                } else {
+                    btn.innerHTML = 'Login';
+                    btn.style.opacity = '1';
+                    errorMsg.style.display = 'flex'; // Show error
+                }
+            }, 1500);
+        }
+
+
+
+        // --- Register Logic Simulation ---
+        function handleRegister(event) {
+            event.preventDefault();
+            
+            const pass = document.getElementById('password').value;
+            const confirmPass = document.getElementById('confirmPassword').value;
+            const errorMsg = document.getElementById('registerError');
+            const btn = document.querySelector('.btn-auth');
+
+            // 1. Basic Validation
+            if (pass !== confirmPass) {
+                errorMsg.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> Passwords do not match.';
+                errorMsg.style.display = 'flex';
+                return; // Stop execution
+            }
+
+            // 2. Hide error if passes
+            errorMsg.style.display = 'none';
+            
+            // 3. Simulate Loading
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Creating Account...';
+            btn.style.opacity = '0.8';
+
+            // 4. Simulate Server Delay
+            setTimeout(() => {
+                btn.innerHTML = 'Success!';
+                btn.style.backgroundColor = '#059669'; // Success color
+                
+                // Redirect after brief pause
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1000);
+            }, 1500);
+        }
+
+
+
+
+
+
+// ===================================================
+//         forget passward logic
+//         ==============================
+
+
+// --- Logic to Simulate Sending Email ---
+        function handleReset(event) {
+            event.preventDefault(); // Stop reload
+            
+            const btn = document.querySelector('.btn-reset');
+            const originalContent = btn.innerHTML;
+
+            // 1. Loading State
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Sending...';
+            btn.style.opacity = '0.8';
+            btn.disabled = true;
+
+            // 2. Simulate Server Delay (1.5 seconds)
+            setTimeout(() => {
+                // Hide Form, Show Success
+                document.getElementById('defaultState').style.display = 'none';
+                document.getElementById('successState').style.display = 'flex';
+                
+                // Reset button for next time
+                btn.innerHTML = originalContent;
+                btn.style.opacity = '1';
+                btn.disabled = false;
+            }, 1500);
+        }
+
+        // Helper to reset the view for demo purposes
+        function retry() {
+            document.getElementById('successState').style.display = 'none';
+            document.getElementById('defaultState').style.display = 'block';
+            document.getElementById('resetForm').reset();
+        }
